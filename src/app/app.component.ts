@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements AfterViewInit{
+
   title = 'DreamShare';
   items: any[] = [];
   onsave(){
@@ -20,17 +21,21 @@ export class AppComponent implements AfterViewInit{
   }
   @ViewChild('canvas1', { static: false }) canvas1!: ElementRef<HTMLCanvasElement>;
   @ViewChild('canvas2', { static: false }) canvas2!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('canvas3', { static: false }) canvas3!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('canvas4', { static: false }) canvas4!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('canvas5', { static: false }) canvas5!: ElementRef<HTMLCanvasElement>;
   @ViewChild('canvasWrapper1', { static: false }) canvasWrapper1!: ElementRef<HTMLElement>;
   @ViewChild('canvasWrapper2', { static: false }) canvasWrapper2!: ElementRef<HTMLElement>;
-  @ViewChild('resizeHandler1', { static: false }) resizeHandler1!: ElementRef<HTMLElement>;
-  @ViewChild('resizeHandler2', { static: false }) resizeHandler2!: ElementRef<HTMLElement>;
-  @ViewChild('canvasContainer', {static: false}) canvasContainer!: ElementRef<HTMLElement>;
+  @ViewChild('canvasWrapper3', { static: false }) canvasWrapper3!: ElementRef<HTMLElement>;
+  @ViewChild('canvasWrapper4', { static: false }) canvasWrapper4!: ElementRef<HTMLElement>;
+  @ViewChild('canvasWrapper5', { static: false }) canvasWrapper5!: ElementRef<HTMLElement>;
 
   private dragging = false;
   private resizing = false;
   private dragOffset = { x: 0, y: 0 };
   private readonly fontsize: number = 50;
   private readonly padding: number = 20;
+  windows: any[] = [];
   constructor(private renderer: Renderer2, private dataservice:DataServiceService) {
     
   }
@@ -38,9 +43,8 @@ export class AppComponent implements AfterViewInit{
   ngOnInit():void {
     this.dataservice.fetchData().subscribe(
       (data) => {
-        this.items = data;
-        this.addNewCanvas()
-        console.log(this.items);
+        this.windows = data;
+        console.log(this.windows[0]);
       },
       (error) => {
         console.error('error fetching data', error);
@@ -48,11 +52,16 @@ export class AppComponent implements AfterViewInit{
     )
   }
   ngAfterViewInit(): void {
-    this.initializeCanvas(this.canvas1.nativeElement, 'This is the first canvas with some text.');
-    this.initializeCanvas(this.canvas2.nativeElement, 'Another canvas with a different text length.');
+    this.initializeCanvas(this.canvas1.nativeElement, this.windows[0].Dream);
+    this.initializeCanvas(this.canvas2.nativeElement, this.windows[1].Dream);
+    this.initializeCanvas(this.canvas3.nativeElement, this.windows[2].Dream);
+    this.initializeCanvas(this.canvas4.nativeElement, this.windows[3].Dream);
+    this.initializeCanvas(this.canvas5.nativeElement, this.windows[4].Dream);
     this.makeDraggable(this.canvasWrapper1.nativeElement);
     this.makeDraggable(this.canvasWrapper2.nativeElement);
-  
+    this.makeDraggable(this.canvasWrapper3.nativeElement);
+    this.makeDraggable(this.canvasWrapper4.nativeElement);
+    this.makeDraggable(this.canvasWrapper5.nativeElement);
   }
 
   initializeCanvas(canvas: HTMLCanvasElement, text: string): void {
@@ -108,19 +117,6 @@ export class AppComponent implements AfterViewInit{
       this.renderer.setStyle(element, 'left', left + 'px');
       this.renderer.setStyle(element, 'top', top + 'px');
     }
-  }
-  addNewCanvas(){
-    const text = this.items[this.canvasIndex];
-    console.log(text);
-    const canvasWrapper = this.renderer.createElement('div');
-    this.renderer.addClass(canvasWrapper, 'canvasContainer');
-
-    const canvas = this.renderer.createElement('canvas') as HTMLCanvasElement;
-    this.renderer.appendChild(canvasWrapper, canvas);
-    this.renderer.appendChild(this.canvasContainer.nativeElement, canvasWrapper);
-    this.initializeCanvas(canvas, text);
-    console.log(text);
-    this.canvasIndex++;
   }
   
 
