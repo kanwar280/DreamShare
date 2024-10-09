@@ -44,7 +44,6 @@ export class AppComponent implements AfterViewInit{
     this.dataservice.fetchData().subscribe(
       (data) => {
         this.windows = data;
-        console.log(this.windows[0]);
       },
       (error) => {
         console.error('error fetching data', error);
@@ -69,14 +68,17 @@ export class AppComponent implements AfterViewInit{
     if (context) {
       const devicePixelRatio = window.devicePixelRatio || 1;
       const padding = 20;
-      context.font = 'Arial';
+      context.font = 'Roboto Mono';
       
       
       const textWidth = context.measureText(text).width;
 
       const scaledWidth = (textWidth + this.padding) * devicePixelRatio;
-      const scaledHeight = 50 * devicePixelRatio; // height based on font size
+      const scaledHeight = 50 * devicePixelRatio; 
+      if (scaledWidth>250){
+        const scaledWidth = 250;
 
+      }
       canvas.width = scaledWidth;
       canvas.height = scaledHeight;
       const w = textWidth + this.padding;
@@ -86,7 +88,13 @@ export class AppComponent implements AfterViewInit{
       context.scale(devicePixelRatio, devicePixelRatio);
 
       context.clearRect(0, 0, canvas.width, canvas.height);
-      context.fillText(text, this.padding, 30); // Position the text based on font size
+      context.fillText(text, this.padding, 30);
+      var image = new Image()
+      image.src = "src/media/mona.png"
+      image.onload = function(){
+        context.drawImage(image, 0, 0);
+      }
+      
     }
   }
   // Make an element draggable using native JS and Renderer2
