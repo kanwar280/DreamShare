@@ -1,0 +1,14 @@
+<p>post-dream works!</p>
+<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="message">Message:</label>
+      <input id="message" formControlName="message" type="text" [(ngModel)]="message" name="message" required />
+    </div>
+  
+    <div>
+      <label for="image">Image:</label>
+      <input id="image" type="file" (change)="onFileChange($event)" accept="image/png"  />
+    </div>
+  
+    <button type="submit">Upload</button>
+  </form>

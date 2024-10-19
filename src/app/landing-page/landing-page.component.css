@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .main{
+  background-image: url("../../media/sky.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 110vh;
+  width: 105vw;
+  margin-left: -5%;
+  margin-top: -5%;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .canvas-container {
+    margin: 20px;
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow:hidden;
+    background-color: white;
+    display: inline-block;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    min-width: 50px;
+    min-height: 50px;
+    animation: myOrbit 10s linear infinite;
+    transition: transform 0.5s ease-out, width 0.5s ease-out, height 0.5s ease-out; /* Smooth scaling on hover */
+  }
+  .canvas-container:hover {
+    cursor: grab;
+}
+  .heading{
+    position: relative;
+    text-align: center;
+    font-family: 'roboto mono';
+    top:10vh;
+    color: #ddd;
+  }
+  .macos-window {
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+  }
+  
+  .window-header {
+    background-color: #e0e0e0;
+    height: 25px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 5px;
+    padding-left: 10px;
+  }
+  
+  .buttons div {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ff5f57; /* close button */
+  }
+  
+  .buttons .minimize {
+    background-color: #ffbd2e;
+  }
+  
+  .buttons .maximize {
+    background-color: #28c840;
+  }
+  
+  canvas {
+    display: block;
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    font-family: "Roboto Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+  }
+  .bigcontainer:hover .canvas-container{
+    animation-play-state: paused;
+  }
+  
+  .canvas-container:nth-child(1){
+    position: absolute;
+    left: 19%;
+    top: 20%;
+    animation-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+  }
+  .canvas-container:nth-child(2){
+    position: absolute;
+    left: 15%;
+    top: 30%;
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1);
+    animation-direction: alternate-reverse;
+  }
+  .canvas-container:nth-child(3){
+    position: absolute;
+    left: 40%;
+    top: 40%;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .canvas-container:nth-child(4){
+    position: absolute;
+    left: 60%;
+    top: 20%;
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1);
+    animation-direction: reverse;
+ }
+  .canvas-container:nth-child(5){
+    position: absolute;
+    left: 45%;
+    top: 15%;
+    animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  }
+
+  @keyframes myOrbit {
+    0% {
+        transform: translate(0, 100px);
+    }
+    25% {
+        transform: translate(100px, 0);
+    }
+    50% {
+        transform: translate(0, -100px);
+    }
+    75% {
+        transform: translate(-100px, 0);
+    }
+    100% {
+        transform: translate(0, 100px);
+    }
+}
