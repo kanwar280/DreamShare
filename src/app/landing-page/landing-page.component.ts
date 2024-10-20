@@ -51,7 +51,7 @@ export class LandingPageComponent implements AfterViewInit{
     )
   }
   ngAfterViewInit(): void {
-    this.initializeCanvas(this.canvas1.nativeElement, this.windows[0].Dream);
+    this.initializeCanvas(this.canvas1.nativeElement, this.windows[0].Dream, this.windows[0].Image);
     this.initializeCanvas(this.canvas2.nativeElement, this.windows[1].Dream);
     this.initializeCanvas(this.canvas3.nativeElement, this.windows[2].Dream);
     this.initializeCanvas(this.canvas4.nativeElement, this.windows[3].Dream);
@@ -63,7 +63,7 @@ export class LandingPageComponent implements AfterViewInit{
     this.makeDraggable(this.canvasWrapper5.nativeElement);
   }
 
-  initializeCanvas(canvas: HTMLCanvasElement, text: string): void {
+  initializeCanvas(canvas: HTMLCanvasElement, text: string, imageurl?: string): void {
     const context = canvas.getContext('2d');
     if (context) {
       const devicePixelRatio = window.devicePixelRatio || 1;
@@ -91,7 +91,7 @@ export class LandingPageComponent implements AfterViewInit{
       var image = new Image()
       image.src = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
       image.onload = function(){
-        context.drawImage(image, 0, 0);
+        context.drawImage(image, 10, 34);
       }
     }
   }
