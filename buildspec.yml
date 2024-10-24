@@ -14,4 +14,4 @@ phases:
   post_build:  
     commands:
       - echo "updating files in s3 bucket..."
-      - aws s3 sync dist/ s3://dreams-archive.com --delete
+      - aws s3 sync dist/dream-share/browser s3://dreams-archive.com --delete
