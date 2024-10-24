@@ -1,4 +1,8 @@
-<p>post-dream works!</p>
+
+<button (click) = goback()>back</button>
+<div class="main">
+
+<div class="container">
 <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
     <div>
       <label for="message">Message:</label>
@@ -12,3 +16,6 @@
   
     <button type="submit">Upload</button>
   </form>
+  <h2 class="success" *ngIf="toDisplay">Your Dream has been added to the archive.</h2>
+</div>
+</div>

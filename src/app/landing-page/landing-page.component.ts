@@ -19,6 +19,9 @@ export class LandingPageComponent implements AfterViewInit{
   gotopost(){
     this.Route.navigate(['postdreams']);
   }
+  gotologin(){
+    this.Route.navigate(['login']);
+  }
   @ViewChild('canvas1', { static: false }) canvas1!: ElementRef<HTMLCanvasElement>;
   @ViewChild('canvas2', { static: false }) canvas2!: ElementRef<HTMLCanvasElement>;
   @ViewChild('canvas3', { static: false }) canvas3!: ElementRef<HTMLCanvasElement>;
@@ -40,6 +43,7 @@ export class LandingPageComponent implements AfterViewInit{
   constructor(private renderer: Renderer2, private dataservice:DataServiceService, private Route:Router) {}
 
   private canvasIndex = 0;
+  
   ngOnInit():void {
     this.dataservice.fetchData().subscribe(
       (data) => {
@@ -49,6 +53,9 @@ export class LandingPageComponent implements AfterViewInit{
         console.error('error fetching data', error);
       }
     )
+  }
+  update(){
+    console.log("again")
   }
   ngAfterViewInit(): void {
     this.initializeCanvas(this.canvas1.nativeElement, this.windows[0].Dream, this.windows[0].Image);
@@ -110,13 +117,13 @@ export class LandingPageComponent implements AfterViewInit{
             canvas.width = canvasWidth;
             canvas.height = canvasHeight;
             context.font = '20px Roboto Mono';
-
             context.scale(devicePixelRatio, devicePixelRatio);
-            
             context.clearRect(0, 0, canvas.width, canvas.height);
             context.fillText(text, padding, textHeight + padding);
             this.renderer.setStyle(canvas, 'width', canvasWidth / devicePixelRatio + 'px');
             this.renderer.setStyle(canvas, 'height', canvasHeight / devicePixelRatio + 'px');
+
+            
         }
                 
     }
