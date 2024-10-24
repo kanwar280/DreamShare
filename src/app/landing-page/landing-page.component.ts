@@ -63,36 +63,62 @@ export class LandingPageComponent implements AfterViewInit{
     this.makeDraggable(this.canvasWrapper5.nativeElement);
   }
 
-  initializeCanvas(canvas: HTMLCanvasElement, text: string, imageurl?: string): void {
+  initializeCanvas(canvas: HTMLCanvasElement, text: string, imageUrl?: string): void {
     const context = canvas.getContext('2d');
     if (context) {
       const devicePixelRatio = window.devicePixelRatio || 1;
       const padding = 20;
-      context.font = 'Roboto Mono';
-      
+      context.font = '30px Roboto Mono';
       
       const textWidth = context.measureText(text).width;
+        const textHeight = 20; 
+        
+        let canvasWidth = (textWidth + padding * 2) * devicePixelRatio;
+        let canvasHeight = (textHeight + padding * 2) * devicePixelRatio;
 
-      const scaledWidth = (textWidth + this.padding) * devicePixelRatio;
-      const scaledHeight = 50 * devicePixelRatio; 
-      if (scaledWidth>150){
-        const scaledWidth = 250;
-      }
-      canvas.width = scaledWidth;
-      canvas.height = scaledHeight;
-      const w = textWidth + this.padding;
-      const h = this.fontsize + this.padding;
-      this.renderer.setStyle(canvas, 'width', w + 'px');
-      this.renderer.setStyle(canvas, 'height', h + 'px');
-      context.scale(devicePixelRatio, devicePixelRatio);
+        if (imageUrl) {
+            const image = new Image();
+            image.src = imageUrl;
+            image.onload = () => {
+                const imageWidth = image.width *3;
+                const imageHeight = image.height *3;
+                
+                canvasWidth = Math.max(textWidth + padding * 2, imageWidth) * devicePixelRatio ;
+                canvasHeight = (textHeight + imageHeight + padding * 3) * devicePixelRatio ;
+                
+                canvas.width = canvasWidth;
+                canvas.height = canvasHeight;
+                context.font = '40px Roboto Mono';
 
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      context.fillText(text, this.padding, 30);
-      var image = new Image()
-      image.src = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
-      image.onload = function(){
-        context.drawImage(image, 10, 34);
-      }
+                context.scale(devicePixelRatio, devicePixelRatio);
+                
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                
+                context.drawImage(image, padding, textHeight + padding * 2, imageHeight, imageWidth);
+
+                context.fillText(text, padding, imageHeight + padding);
+                if (canvasWidth>850){
+                  canvasWidth = 850;
+                }
+                if (canvasHeight>850){
+                  canvasHeight = 850;
+                }
+                this.renderer.setStyle(canvas, 'width', canvasWidth / devicePixelRatio + 'px');
+                this.renderer.setStyle(canvas, 'height', canvasHeight / devicePixelRatio + 'px');
+            };
+        } else {
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+            context.font = '20px Roboto Mono';
+
+            context.scale(devicePixelRatio, devicePixelRatio);
+            
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.fillText(text, padding, textHeight + padding);
+            this.renderer.setStyle(canvas, 'width', canvasWidth / devicePixelRatio + 'px');
+            this.renderer.setStyle(canvas, 'height', canvasHeight / devicePixelRatio + 'px');
+        }
+                
     }
   }
   // Make an element draggable using native JS and Renderer2
