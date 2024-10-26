@@ -5,6 +5,7 @@ import { Directive, ElementRef, Renderer2, HostListener } from '@angular/core';
   standalone: true
 })
 export class DraggableDirective {
+  private static ZindexCounter = 1000;
   private dragging = false;
   private dragOffset = { x: 0, y: 0 };
   private mouseMoveListener: (() => void) | null = null;
@@ -18,6 +19,10 @@ export class DraggableDirective {
 
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent): void {
+
+    DraggableDirective.ZindexCounter++;
+    this.renderer.setStyle(this.el.nativeElement, 'z-index', DraggableDirective.ZindexCounter)
+    console.log(DraggableDirective.ZindexCounter)
     this.dragging = true;
     this.dragOffset.x = event.clientX - this.el.nativeElement.getBoundingClientRect().left;
     this.dragOffset.y = event.clientY - this.el.nativeElement.getBoundingClientRect().top;
