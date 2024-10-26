@@ -8,6 +8,8 @@ import { NgForOf } from '@angular/common';
 import { NgStyle } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { DraggableDirective } from 'app/draggable.directive';
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 @Component({
   selector: 'app-landing-page',
   standalone: true,
@@ -26,6 +28,9 @@ export class LandingPageComponent{
   gotologin(){
     this.Route.navigate(['login']);
   }
+  removeArticle(window: any) {
+    this.windows = this.windows.filter(w => w !== window);
+  }
   /*
   @ViewChild('canvas1', { static: false }) canvas1!: ElementRef<HTMLCanvasElement>;
   @ViewChild('canvas2', { static: false }) canvas2!: ElementRef<HTMLCanvasElement>;
@@ -38,10 +43,11 @@ export class LandingPageComponent{
   private dragOffset = { x: 0, y: 0 };
   windows: any[] = [];
 
-  constructor(private renderer: Renderer2, private dataservice:DataServiceService, private Route:Router) {}
+  constructor(private renderer: Renderer2, private dataservice:DataServiceService, private Route:Router, private deviceService: DeviceDetectorService) {}
 
   
   ngOnInit():void {
+    console.log(this.deviceService.isMobile());
     this.dataservice.fetchData().subscribe(
       (data) => {
         this.windows = data;

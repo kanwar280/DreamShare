@@ -4,7 +4,7 @@
 <button (click) = gotologin()>login</button>
 <div class="stacks-container">
   <article class="articles" *ngFor="let window of windows; let i = index"
-  [ngStyle]="{'top': randomPositions[i].top, 'left': randomPositions[i].left}" appDraggable>
+  [ngStyle]="{'top': randomPositions[i].top, 'left': randomPositions[i].left}" appDraggable (dismiss)="removeArticle(window)">
     <div class="article-container">
       {{ window.Dream}}
     </div>

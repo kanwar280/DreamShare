@@ -1,20 +1,20 @@
-import { Directive, ElementRef, Renderer2, HostListener } from '@angular/core';
+import { Directive, ElementRef, Renderer2, Output, EventEmitter, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appDraggable]',
-  standalone: true
+  standalone: true,
 })
 export class DraggableDirective {
   private static zIndexCounter = 1000; // Shared z-index counter
   private dragging = false;
   private dragOffset = { x: 0, y: 0 };
-  private mouseMoveListener: (() => void) | null = null;
-  private mouseUpListener: (() => void) | null = null;
-  private touchMoveListener: (() => void) | null = null;
-  private touchEndListener: (() => void) | null = null;
+  private initialTouchX = 0;
+  private initialTouchTime = 0;
+
+  @Output() dismiss = new EventEmitter<void>(); // Emit when item is swiped off screen
 
   constructor(private el: ElementRef, private renderer: Renderer2) {
-    // Ensure the element is positioned for dragging
+    // Set initial styles for dragging
     this.renderer.setStyle(this.el.nativeElement, 'position', 'absolute');
     this.renderer.setStyle(this.el.nativeElement, 'cursor', 'move');
   }
@@ -22,20 +22,36 @@ export class DraggableDirective {
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent): void {
     this.startDragging(event.clientX, event.clientY);
-    
-    // Add mouse event listeners
-    this.mouseMoveListener = this.renderer.listen('window', 'mousemove', (moveEvent: MouseEvent) => this.onMouseMove(moveEvent));
-    this.mouseUpListener = this.renderer.listen('window', 'mouseup', () => this.onMouseUp());
+
+    const mouseMoveListener = this.renderer.listen('window', 'mousemove', (moveEvent: MouseEvent) => {
+      this.onMove(moveEvent.clientX, moveEvent.clientY);
+    });
+
+    const mouseUpListener = this.renderer.listen('window', 'mouseup', () => {
+      this.stopDragging();
+      mouseMoveListener();
+      mouseUpListener();
+    });
   }
 
   @HostListener('touchstart', ['$event'])
   onTouchStart(event: TouchEvent): void {
     const touch = event.touches[0];
+    this.initialTouchX = touch.clientX;
+    this.initialTouchTime = event.timeStamp;
     this.startDragging(touch.clientX, touch.clientY);
 
-    // Add touch event listeners
-    this.touchMoveListener = this.renderer.listen('window', 'touchmove', (moveEvent: TouchEvent) => this.onTouchMove(moveEvent));
-    this.touchEndListener = this.renderer.listen('window', 'touchend', () => this.onTouchEnd());
+    const touchMoveListener = this.renderer.listen('window', 'touchmove', (moveEvent: TouchEvent) => {
+      const touchMove = moveEvent.touches[0];
+      this.onMove(touchMove.clientX, touchMove.clientY);
+    });
+
+    const touchEndListener = this.renderer.listen('window', 'touchend', (endEvent: TouchEvent) => {
+      this.onTouchEnd(endEvent);
+      this.stopDragging();
+      touchMoveListener();
+      touchEndListener();
+    });
   }
 
   private startDragging(clientX: number, clientY: number): void {
@@ -43,25 +59,12 @@ export class DraggableDirective {
     this.dragOffset.x = clientX - this.el.nativeElement.getBoundingClientRect().left;
     this.dragOffset.y = clientY - this.el.nativeElement.getBoundingClientRect().top;
 
-    // Increment zIndexCounter and apply it to the element
     DraggableDirective.zIndexCounter++;
     this.renderer.setStyle(this.el.nativeElement, 'z-index', DraggableDirective.zIndexCounter);
   }
 
-  private onMouseMove(event: MouseEvent): void {
-    if (this.dragging) {
-      this.moveElement(event.clientX, event.clientY);
-    }
-  }
-
-  private onTouchMove(event: TouchEvent): void {
-    if (this.dragging && event.touches.length > 0) {
-      const touch = event.touches[0];
-      this.moveElement(touch.clientX, touch.clientY);
-    }
-  }
-
-  private moveElement(clientX: number, clientY: number): void {
+  private onMove(clientX: number, clientY: number): void {
+    if (!this.dragging) return;
     const left = clientX - this.dragOffset.x;
     const top = clientY - this.dragOffset.y;
 
@@ -69,22 +72,20 @@ export class DraggableDirective {
     this.renderer.setStyle(this.el.nativeElement, 'top', `${top}px`);
   }
 
-  private onMouseUp(): void {
-    this.stopDragging();
-  }
-
-  private onTouchEnd(): void {
-    this.stopDragging();
-  }
-
   private stopDragging(): void {
     this.dragging = false;
+  }
 
-    // Remove event listeners when dragging ends
-    if (this.mouseMoveListener) this.mouseMoveListener();
-    if (this.mouseUpListener) this.mouseUpListener();
-    if (this.touchMoveListener) this.touchMoveListener();
-    if (this.touchEndListener) this.touchEndListener();
+  private onTouchEnd(event: TouchEvent): void {
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - this.initialTouchX;
+    const deltaTime = event.timeStamp - this.initialTouchTime;
+    const velocityX = deltaX / deltaTime;
+
+    // Trigger swipe out only if deltaX is sufficiently large and velocity indicates a rightward swipe
+    if (deltaX > 100 && velocityX > 0.3) {
+      this.swipeOutRight();
+    }
   }
 
   @HostListener('mouseenter')
@@ -101,5 +102,15 @@ export class DraggableDirective {
     if (!this.dragging) {
       this.renderer.setStyle(this.el.nativeElement, 'z-index', DraggableDirective.zIndexCounter);
     }
+  }
+
+  private swipeOutRight(): void {
+    this.renderer.setStyle(this.el.nativeElement, 'transition', 'transform 0.5s ease-out');
+    this.renderer.setStyle(this.el.nativeElement, 'transform', 'translateX(100vw)');
+
+    setTimeout(() => {
+      this.dismiss.emit();
+      this.renderer.setStyle(this.el.nativeElement, 'display', 'none'); // Hide the element
+    }, 500); // 500ms matches the transition duration
   }
 }
