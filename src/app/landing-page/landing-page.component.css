@@ -1,5 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
-
+  
+  @font-face {
+    src: url('../../media/RobotoMono-Light.ttf') format('truetype');
+    font-family: "Roboto", serif;
+    font-weight: 300;
+    font-style: normal;
+  } 
   .main{
   background-image: url("../../media/sky.gif");
   height: 100vh;
@@ -11,7 +16,6 @@
   left: 0;
   top: 0;
   overflow: hidden;
-
   }
   .stacks-container{
   height: 100%;
@@ -19,9 +23,9 @@
   position: relative;
   }
   .articles{
+    font-family: "Roboto";
     position: absolute;
     cursor: move;
-
   }
   .article-container{
     padding: 15px;
