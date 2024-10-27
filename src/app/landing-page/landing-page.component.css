@@ -1,4 +1,5 @@
   
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
   @font-face {
     src: url('../../media/RobotoMono-Light.ttf') format('truetype');
     font-family: "Roboto", serif;
@@ -17,13 +18,21 @@
   top: 0;
   overflow: hidden;
   }
+  .heading{
+    position: relative;
+    text-align: center;
+    font-family: 'roboto mono';
+    font-size: xx-large;
+    top:45vh;
+    color: #ddd;
+  }
   .stacks-container{
   height: 100%;
   width: 100%;
   position: relative;
   }
   .articles{
-    font-family: "Roboto";
+    font-family: "roboto mono";
     position: absolute;
     cursor: move;
   }
@@ -36,5 +45,25 @@
   .text{
     position: absolute;
     top: 10%;
-    color:#f0f0f0
+    color:#f0f0f0;
+    font-family: 'roboto mono';
+    font-size: small;
+  }
+  button{
+    position: absolute;
+    top: 1%;
+  }
+  .button1{
+left: 0%;
+  }
+  .button2{
+    left: 5%;
+  }
+  @media (max-width: 600px) {
+    .button1{
+      left: 0%;
+        }
+        .button2{
+          left: 10%;
+        }
   }

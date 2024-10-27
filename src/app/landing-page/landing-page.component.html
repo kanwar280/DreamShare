@@ -1,7 +1,8 @@
 
 <div class="main">
-  <button (click) = gotopost()>post</button>
-<button (click) = gotologin()>login</button>
+  <h1 class="heading">Dreams.archive</h1>
+  <button (click) = gotopost() class="button1">post</button>
+<button (click) = gotologin() class="button2">login</button>
 <div class="stacks-container">
   <article class="articles" *ngFor="let window of windows; let i = index"
   [ngStyle]="{'top': randomPositions[i].top, 'left': randomPositions[i].left}" appDraggable (dismiss)="removeArticle(window)">
@@ -10,5 +11,7 @@
     </div>
   </article>
 </div>
-<p class="text">Work in progress || A platform to share your dreams. Launching in November 2024. Built with typescript, love and AI.</p>
+<p class="text">Work in progress || A platform to share your dreams. Launching in November 2024. Built with typescript, love and AI.
+  Update Oct27 24: Creating JS Library for gesture control because hammerjs was acting up in new angular update.
+</p>
 </div>
