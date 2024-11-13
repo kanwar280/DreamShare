@@ -7,6 +7,7 @@ import { Router, RouterOutlet } from '@angular/router';
 
 
 
+
 @Component({
   selector: 'app-post-dream',
   standalone: true,
@@ -24,6 +25,7 @@ export class PostDreamComponent {
   image1: string | ArrayBuffer | null = null;
   message: string = '';
   toDisplay = false;
+  isLoggedIn: boolean = false;
 
 
 
@@ -32,6 +34,7 @@ export class PostDreamComponent {
       message: ['']
     });
   }
+ 
   goback(){
     this.Route.navigate(['']);
   }

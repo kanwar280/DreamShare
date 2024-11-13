@@ -19,3 +19,9 @@
   <h2 class="success" *ngIf="toDisplay">Your Dream has been added to the archive.</h2>
 </div>
 </div>
+<div *ngIf="isLoggedIn; else notLoggedIn">
+  <p>Welcome! You are logged in.</p>
+</div>
+<ng-template #notLoggedIn>
+  <p>Please log in to continue.</p>
+</ng-template>

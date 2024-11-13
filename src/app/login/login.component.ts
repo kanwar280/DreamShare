@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Auth, signInWithPopup, GoogleAuthProvider, User } from '@angular/fire/auth';
+import { Auth, signInWithPopup, GoogleAuthProvider, User, signOut} from '@angular/fire/auth';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
     <div *ngIf="user">
       <p>Welcome, {{ user.displayName }}</p>
       <img [src]="user.photoURL" alt="User photo" *ngIf="user.photoURL" width="100">
+      <button (click)="logout()">LogOut</button>
     </div>
   `,
 })
@@ -34,6 +35,18 @@ export class LoginComponent {
       })
       .catch(error => {
         console.error('Error during sign-in:', error);
+      });
+  }
+  fetchmydreams() {
+
+  }
+  logout(): void {
+    signOut(this.auth)
+      .then(() => {
+        console.log('User logged out successfully.');
+      })
+      .catch((error) => {
+        console.error('Error logging out:', error);
       });
   }
 }

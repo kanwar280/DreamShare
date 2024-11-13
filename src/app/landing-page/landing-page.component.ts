@@ -7,6 +7,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { DraggableDirective } from 'app/draggable.directive';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
+
 @Component({
   selector: 'app-landing-page',
   standalone: true,
