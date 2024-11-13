@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
+import { Auth, signInWithPopup, GoogleAuthProvider, User, signOut} from '@angular/fire/auth';
+
 
 
 
@@ -26,12 +28,16 @@ export class PostDreamComponent {
   message: string = '';
   toDisplay = false;
   isLoggedIn: boolean = false;
+  user: User | null = null;
 
 
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private Route:Router) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private Route:Router, private auth: Auth) {
     this.uploadForm = this.fb.group({
       message: ['']
+    });
+    this.auth.onAuthStateChanged((currentUser) => {
+      this.user = currentUser;
     });
   }
  
@@ -54,6 +60,7 @@ export class PostDreamComponent {
 
   onSubmit() {
     const body = {
+      UserId: this.user?.uid,
       message: this.message,
       image: this.image?.toString().split(",")[1]
     };
