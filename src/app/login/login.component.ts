@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Auth, signInWithPopup, GoogleAuthProvider, User, signOut} from '@angular/fire/auth';
 import { CommonModule } from '@angular/common';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ import { CommonModule } from '@angular/common';
     <h2>Login with Google</h2>
     <button *ngIf="!user" (click)="loginWithGoogle()">Sign in with Google</button>
     <div *ngIf="user">
+      <button (click)="goback()">Back</button>
       <p>Welcome, {{ user.displayName }}</p>
       <img [src]="user.photoURL" alt="User photo" *ngIf="user.photoURL" width="100">
       <button (click)="logout()">LogOut</button>
@@ -19,11 +21,11 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   user: User | null = null;
 
-  constructor(private auth: Auth) {
+  constructor(private auth: Auth, private Route: Router) {
     // Check if the user is already logged in
-    this.auth.onAuthStateChanged((currentUser) => {
-      this.user = currentUser;
-    });
+        this.auth.onAuthStateChanged((currentUser) => {
+          this.user = currentUser;
+        });
   }
 
   loginWithGoogle() {
@@ -48,5 +50,8 @@ export class LoginComponent {
       .catch((error) => {
         console.error('Error logging out:', error);
       });
+  }
+  goback(){
+    this.Route.navigate(['']);
   }
 }
