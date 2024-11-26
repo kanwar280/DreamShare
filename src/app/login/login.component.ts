@@ -10,8 +10,9 @@ import { Router, RouterOutlet } from '@angular/router';
   template: `
     <h2>Login with Google</h2>
     <button *ngIf="!user" (click)="loginWithGoogle()">Sign in with Google</button>
+    <button (click)="goback()">Back</button>
     <div *ngIf="user">
-      <button (click)="goback()">Back</button>
+      
       <p>Welcome, {{ user.displayName }}</p>
       <img [src]="user.photoURL" alt="User photo" *ngIf="user.photoURL" width="100">
       <button (click)="logout()">LogOut</button>
