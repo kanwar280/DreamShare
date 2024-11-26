@@ -4,11 +4,27 @@
 
 <div class="container">
 <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="title">Title:</label>
+    <input id="title" formControlName="title" type="text" [(ngModel)]="title" name="message" required />
+  </div>
     <div>
       <label for="message">Message:</label>
       <input id="message" formControlName="message" type="text" [(ngModel)]="message" name="message" required />
     </div>
-  
+    <div>
+      <label for="dropdown">Type:</label>
+  <select id="dropdown" formControlName="Type" required>
+    <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+  </select>
+    </div>
+    <div>
+      <label for="dropdown">Can we show this on landingpage:</label>
+    <select id="booleanChoice" formControlName="IsPrivate" required>
+      <option [value]="true">True</option>
+      <option [value]="false">False</option>
+    </select>
+  </div>
     <div>
       <label for="image">Image:</label>
       <input id="image" type="file" (change)="onFileChange($event)" accept="image/png"  />
