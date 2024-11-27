@@ -7,11 +7,16 @@
   <article class="articles" *ngFor="let window of windows; let i = index"
   [ngStyle]="{'top': randomPositions[i].top, 'left': randomPositions[i].left}" appDraggable (dismiss)="removeArticle(window)">
     <div class="article-container">
-      {{ window.Dream}}
+      <aside> [{{window.Title}}]</aside>
+      "{{window.Dream}}"
+      <aside> [{{window.Date}}  -  {{window.Type}}]</aside>
     </div>
+    <button>save</button>
+    <button>like</button>
+    <button>share</button>
   </article>
 </div>
 <p class="text">Work in progress || A platform to share your dreams. Launching in November 2024. Built with typescript, love and AI.
-  <br>Update Nov13 2024: Temporary authGuard on posting dreams, gotta login before posting for a while. Luv.
+  <br>Update Nov26 2024: Sorry for delays. should be runnning in December for sure. Luv.
 </p>
 </div>

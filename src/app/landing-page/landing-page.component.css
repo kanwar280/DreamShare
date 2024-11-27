@@ -18,6 +18,14 @@
   top: 0;
   overflow: hidden;
   }
+  aside{
+    display: block;
+    font-family: "CourierPrime", "ABC Simon Mono", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    line-height: 20px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
   .heading{
     position: relative;
     text-align: center;

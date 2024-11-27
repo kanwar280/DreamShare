@@ -68,6 +68,7 @@ export class PostDreamComponent {
     if (this.uploadForm.valid) {
       const body = {
         UserId: this.user?.uid,
+        AuthorName: this.user?.displayName,
         message: this.message,
         title: this.title,
         image: this.image?.toString().split(",")[1],
