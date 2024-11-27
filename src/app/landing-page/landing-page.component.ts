@@ -42,15 +42,19 @@ export class LandingPageComponent{
     this.dataservice.fetchData().subscribe(
       (data) => {
         this.windows = data;
+        this.randomPositions = this.windows.map(() => ({
+          top: `${Math.floor(Math.random() * 80)}vh`,
+          left: `${Math.floor(Math.random() * 80)}vw`
+        }));
       },
       (error) => {
         console.error('error fetching data', error);
       }
     )
-    this.windows.forEach(() => {
-      const top = `${Math.floor(Math.random() * 80)}vh`;
-      const left = `${Math.floor(Math.random() * 80)}vw`;
-      this.randomPositions.push({ top, left });
-    });
+   // this.windows.forEach(() => {
+   //   const top = `${Math.floor(Math.random() * 80)}vh`;
+   //   const left = `${Math.floor(Math.random() * 80)}vw`;
+   //   this.randomPositions.push({ top, left });
+   // });
   }
 }
