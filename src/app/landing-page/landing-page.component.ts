@@ -8,6 +8,7 @@ import { DraggableDirective } from 'app/draggable.directive';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 
+
 @Component({
   selector: 'app-landing-page',
   standalone: true,
@@ -34,7 +35,8 @@ export class LandingPageComponent{
   private dragOffset = { x: 0, y: 0 };
   windows: any[] = [];
 
-  constructor(private renderer: Renderer2, private dataservice:DataServiceService, private Route:Router, private deviceService: DeviceDetectorService) {}
+  constructor(private renderer: Renderer2, private dataservice:DataServiceService, private Route:Router, private deviceService: DeviceDetectorService) {
+  }
 
   
   ngOnInit():void {
@@ -51,10 +53,5 @@ export class LandingPageComponent{
         console.error('error fetching data', error);
       }
     )
-   // this.windows.forEach(() => {
-   //   const top = `${Math.floor(Math.random() * 80)}vh`;
-   //   const left = `${Math.floor(Math.random() * 80)}vw`;
-   //   this.randomPositions.push({ top, left });
-   // });
   }
 }

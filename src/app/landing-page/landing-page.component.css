@@ -16,7 +16,7 @@
   background-size: cover;
   left: 0;
   top: 0;
-  overflow: hidden;
+  overflow: visible;
   }
   aside{
     display: block;
@@ -41,7 +41,6 @@
   }
   .articles{
     font-family: "roboto mono";
-    position: absolute;
     cursor: move;
   }
   .article-container{
@@ -91,6 +90,12 @@ left: 0%;
     border: none;
     margin-left: 70px;
     transform: translateY(-2px);
+  }
+  #share:hover, #like:hover{
+    transform: scale(1.1);
+  }
+  #save:hover{
+    transform: translateY(-3px) scale(1.1);
   }
   
   @media (max-width: 600px) {

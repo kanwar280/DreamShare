@@ -26,8 +26,11 @@
     </select>
   </div>
     <div>
-      <label for="image">Image:</label>
-      <input id="image" type="file" (change)="onFileChange($event)" accept="image/png"  />
+      <label for="image">Create AI Image based on your dream:</label>
+      <button (click)="GetImage()"></button>
+      <div *ngIf="base64Image">
+        <img [src]="base64Image" alt="Generated Image" />
+      </div>
     </div>
   
     <button type="submit">Upload</button>
