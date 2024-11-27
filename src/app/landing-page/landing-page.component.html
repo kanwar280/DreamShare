@@ -3,7 +3,6 @@
   <h1 class="heading">Dreams.archive</h1>
   <button (click) = gotopost() class="button1">post</button>
 <button (click) = gotologin() class="button2">login</button>
-<div class="stacks-container">
   <article class="articles" *ngFor="let window of windows; let i = index"
   [ngStyle]="{'top': randomPositions[i].top, 'left': randomPositions[i].left}" appDraggable (dismiss)="removeArticle(window)">
     <div class="article-container">
@@ -38,5 +37,8 @@
 </div>
 <p class="text">Work in progress || A platform to share your dreams. Launching in November 2024. Built with typescript, love and AI.
   <br>Update Nov26 2024: ["Real men test code in production","These buttons not working yet","Luv."]
+
 </p>
+<a class="insta" href="https://www.instagram.com/create/story/?url=s3://dreamimagespublicallyaccessible/08475227-dc15-485b-baec-b589c11b6a05.png"target="_blank"> Share on Instagram </a><div class="stacks-container">
+
 </div>
