@@ -70,7 +70,7 @@ export class PostDreamComponent {
     if (dreamValue){
       if (dreamValue.trim()) {
         const encodedPrompt = encodeURIComponent(dreamValue); // URL encode the prompt
-        const url = `https://cors-anywhere.herokuapp.com/https://pollinations.ai/p/${encodedPrompt}`;
+        const url = `https://pollinations.ai/p/${encodedPrompt}`;
   
         // Fetch the image as a Blob
         fetch(url)
