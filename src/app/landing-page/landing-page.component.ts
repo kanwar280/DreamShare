@@ -50,8 +50,8 @@ export class LandingPageComponent{
 
       // Create File and Share
       const filesArray = [
-        new File([this.blobImageAsset], `${this.title}.png`, {
-          type: 'image/png',
+        new File([this.blobImageAsset], `${this.title}.jpg`, {
+          type: 'image/jpg',
           lastModified: new Date().getTime(),
         }),
       ];
@@ -70,7 +70,9 @@ export class LandingPageComponent{
       console.error('Error during fetch or share:', error);
     }
   }
+  gotoinsta(){
 
+  }
     
   
   ngOnInit():void {
