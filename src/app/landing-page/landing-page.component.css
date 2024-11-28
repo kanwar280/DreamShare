@@ -42,7 +42,9 @@
   .articles{
     font-family: "roboto mono";
     cursor: move;
-  }
+    top: 20%;
+    left: 20%;
+      }
   .article-container{
     position: relative;
     padding-bottom: 50px;

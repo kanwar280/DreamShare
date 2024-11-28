@@ -18,6 +18,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 //implements Afterviewinit in export class,(check typo) if using canvases.
 export class LandingPageComponent{
+  blobImageAsset!: Blob;
   title = 'DreamShare';
   items: any[] = [];
   randomPositions: { top: string, left: string }[] = [];
@@ -37,16 +38,50 @@ export class LandingPageComponent{
 
   constructor(private renderer: Renderer2, private dataservice:DataServiceService, private Route:Router, private deviceService: DeviceDetectorService) {
   }
+  async fetchAndShareImage(url: string): Promise<void> {
+    try {
+      // Fetch the image and convert to Blob
+      const response = await fetch(url);
+      if (!response.ok) {
+        console.error('Failed to fetch image:', response.statusText);
+        return;
+      }
+      this.blobImageAsset = await response.blob();
 
+      // Create File and Share
+      const filesArray = [
+        new File([this.blobImageAsset], `${this.title}.png`, {
+          type: 'image/png',
+          lastModified: new Date().getTime(),
+        }),
+      ];
+      const shareData = {
+        title: this.title,
+        files: filesArray,
+      };
+
+      if (navigator.canShare && navigator.canShare(shareData)) {
+        await navigator.share(shareData);
+        console.log('Shared successfully!');
+      } else {
+        console.error('Sharing not supported on this device or browser.');
+      }
+    } catch (error) {
+      console.error('Error during fetch or share:', error);
+    }
+  }
+
+    
   
   ngOnInit():void {
+    
     console.log(this.deviceService.isMobile());
     this.dataservice.fetchData().subscribe(
       (data) => {
         this.windows = data;
         this.randomPositions = this.windows.map(() => ({
-          top: `${Math.floor(Math.random() * 80)}vh`,
-          left: `${Math.floor(Math.random() * 80)}vw`
+          top: `${Math.floor(Math.random() * 70)}vh`,
+          left: `${Math.floor(Math.random() * 70)}vw`
         }));
       },
       (error) => {
