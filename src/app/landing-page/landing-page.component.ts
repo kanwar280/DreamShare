@@ -56,7 +56,6 @@ export class LandingPageComponent{
         }),
       ];
       const shareData = {
-        title: this.title,
         files: filesArray,
       };
 
