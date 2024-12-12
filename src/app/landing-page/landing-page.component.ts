@@ -2,17 +2,18 @@ import { AfterViewInit, Component , ViewChild , ElementRef , Renderer2, NgModule
 import * as $ from 'jquery';
 import { DataServiceService } from '../data-service.service';
 import { HttpClient } from '@angular/common/http';
-import { NgFor, NgForOf, NgStyle } from '@angular/common';
+import { NgFor, NgForOf, NgStyle, NgIf } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { DraggableDirective } from 'app/draggable.directive';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { PopupComponent } from 'app/popup/popup.component';
 
 
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [RouterOutlet, NgFor, NgStyle, DraggableDirective],
+  imports: [RouterOutlet, NgFor, NgStyle, DraggableDirective, NgIf, PopupComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
 })
@@ -22,6 +23,15 @@ export class LandingPageComponent{
   title = 'DreamShare';
   items: any[] = [];
   randomPositions: { top: string, left: string }[] = [];
+  selectedWindow: any = null;
+  openPopup(window: any): void {
+    this.selectedWindow = window;
+  }
+
+  closePopup(): void {
+    this.selectedWindow = null;
+  }
+
   gotopost(){
     this.Route.navigate(['postdreams']);
   }
@@ -68,9 +78,6 @@ export class LandingPageComponent{
     } catch (error) {
       console.error('Error during fetch or share:', error);
     }
-  }
-  gotoinsta(){
-
   }
     
   

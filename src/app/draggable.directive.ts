@@ -23,6 +23,7 @@ export class DraggableDirective {
 
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent): void {
+    event.preventDefault();
     this.startDragging(event.clientX, event.clientY);
 
     const mouseMoveListener = this.renderer.listen('window', 'mousemove', (moveEvent: MouseEvent) => {
