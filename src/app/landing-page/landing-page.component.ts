@@ -48,6 +48,7 @@ export class LandingPageComponent{
 
   constructor(private renderer: Renderer2, private dataservice:DataServiceService, private Route:Router, private deviceService: DeviceDetectorService) {
   }
+  /*
   async fetchAndShareImage(url: string): Promise<void> {
     try {
       // Fetch the image and convert to Blob
@@ -79,6 +80,7 @@ export class LandingPageComponent{
       console.error('Error during fetch or share:', error);
     }
   }
+  */
     
   
   ngOnInit():void {
