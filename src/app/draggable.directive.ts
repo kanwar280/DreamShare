@@ -9,6 +9,8 @@ export class DraggableDirective {
   private dragging = false;
   private dragOffset = { x: 0, y: 0 };
   private initialTouchX = 0;
+  private initialTouchY = 0;
+
   private initialTouchTime = 0;
 
   @Output() dismiss = new EventEmitter<void>(); // Emit when item is swiped off screen
@@ -21,6 +23,7 @@ export class DraggableDirective {
 
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent): void {
+    event.preventDefault();
     this.startDragging(event.clientX, event.clientY);
 
     const mouseMoveListener = this.renderer.listen('window', 'mousemove', (moveEvent: MouseEvent) => {
@@ -38,6 +41,7 @@ export class DraggableDirective {
   onTouchStart(event: TouchEvent): void {
     const touch = event.touches[0];
     this.initialTouchX = touch.clientX;
+    this.initialTouchY = touch.clientY;
     this.initialTouchTime = event.timeStamp;
     this.startDragging(touch.clientX, touch.clientY);
 
@@ -65,6 +69,7 @@ export class DraggableDirective {
 
   private onMove(clientX: number, clientY: number): void {
     if (!this.dragging) return;
+
     const left = clientX - this.dragOffset.x;
     const top = clientY - this.dragOffset.y;
 

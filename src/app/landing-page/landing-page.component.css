@@ -16,7 +16,15 @@
   background-size: cover;
   left: 0;
   top: 0;
-  overflow: hidden;
+  overflow: visible;
+  }
+  aside{
+    display: block;
+    font-family: "CourierPrime", "ABC Simon Mono", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    line-height: 20px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
   }
   .heading{
     position: relative;
@@ -33,10 +41,13 @@
   }
   .articles{
     font-family: "roboto mono";
-    position: absolute;
     cursor: move;
-  }
+    top: 20%;
+    left: 20%;
+      }
   .article-container{
+    position: relative;
+    padding-bottom: 50px;
     padding: 15px;
   background-color: #f0f0f0;
   border-radius: 10px;
@@ -60,6 +71,41 @@ left: 0%;
   .button2{
     left: 5%;
   }
+  .button-container {
+    display: flex;
+    justify-content: space-between; /* Align buttons left-to-right */
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+  }
+  #share{
+    background-color: transparent;
+    border: none;
+  }
+  #like{
+    background-color: transparent;
+    border: none;
+    margin-left: 35px;
+  }
+  #save{
+    background-color: transparent;
+    border: none;
+    margin-left: 70px;
+    transform: translateY(-2px);
+  }
+  #share:hover, #like:hover{
+    transform: scale(1.1);
+  }
+  #save:hover{
+    transform: translateY(-3px) scale(1.1);
+  }
+  .insta{
+    position:absolute;
+    top:10%;
+    z-index: 999;
+    left: 10%;
+  }
+  
   @media (max-width: 600px) {
     .button1{
       left: 0%;
