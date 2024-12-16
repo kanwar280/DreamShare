@@ -39,6 +39,7 @@ export class DraggableDirective {
 
   @HostListener('touchstart', ['$event'])
   onTouchStart(event: TouchEvent): void {
+    event.preventDefault();
     const touch = event.touches[0];
     this.initialTouchX = touch.clientX;
     this.initialTouchY = touch.clientY;
@@ -82,6 +83,7 @@ export class DraggableDirective {
   }
 
   private onTouchEnd(event: TouchEvent): void {
+    event.preventDefault();
     const touch = event.changedTouches[0];
     const deltaX = touch.clientX - this.initialTouchX;
     const deltaTime = event.timeStamp - this.initialTouchTime;

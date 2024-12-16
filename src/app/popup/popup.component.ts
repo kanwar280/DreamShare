@@ -8,10 +8,9 @@ import html2canvas from 'html2canvas';
       <div #popupContent class="popup-content" (click)="$event.stopPropagation()">
         <h3>{{ data?.Title }}</h3>
         <p>{{ data?.Dream }}<br>
-        ({{ data?.Date }})<br>
-        ({{ data?.Type }})<br>
+        [{{ data?.Date }} - {{ data?.Type }}]<br>
         <button (click)="onClose()">Close</button>
-        <button (click)="share()">Share</button>
+        <button (click)="share()">Share on IG</button>
       </div>
     </div>
   `,
@@ -34,22 +33,7 @@ export class PopupComponent {
     } 
     const popupElement = this.popupContent.nativeElement;
     await this.captureAndShareImage(popupElement);
-    /*
-    html2canvas(popupElement,{
-      width: 1080,
-      height: 1920
-    }).then((canvas) => {
-      // Convert canvas to an image
-      const dataUrl = canvas.toDataURL('image/png');
-
-      // Trigger download of the image
-      const link = document.createElement('a');
-      link.href = dataUrl;
-      link.download = 'popup-image.png';
-      link.click();
-    }).catch((error) => {
-      console.error('Error capturing the popup with html2canvas:', error);
-    }); */
+    
   }
 
   async captureAndShareImage(element: HTMLElement): Promise<void> {
