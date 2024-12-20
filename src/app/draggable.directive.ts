@@ -39,7 +39,14 @@ export class DraggableDirective {
 
   @HostListener('touchstart', ['$event'])
   onTouchStart(event: TouchEvent): void {
-    event.preventDefault();
+    const target = event.target as HTMLElement;
+    if (target.tagName === 'BUTTON' || target.tagName === 'A' || target.closest('button, a')){
+      return;
+    }
+    else{
+      event.preventDefault();
+    }
+    
     const touch = event.touches[0];
     this.initialTouchX = touch.clientX;
     this.initialTouchY = touch.clientY;
@@ -83,12 +90,17 @@ export class DraggableDirective {
   }
 
   private onTouchEnd(event: TouchEvent): void {
-    event.preventDefault();
+    const target = event.target as HTMLElement;
+    if (target.tagName === 'BUTTON' || target.tagName === 'A' || target.closest('button, a')){
+      return;
+    }
+    else{
+      event.preventDefault();
+    }
     const touch = event.changedTouches[0];
     const deltaX = touch.clientX - this.initialTouchX;
     const deltaTime = event.timeStamp - this.initialTouchTime;
     const velocityX = deltaX / deltaTime;
-
     // Trigger swipe out only if deltaX is sufficiently large and velocity indicates a rightward swipe
     if (deltaX > 100 && velocityX > 0.3) {
       this.swipeOutRight();

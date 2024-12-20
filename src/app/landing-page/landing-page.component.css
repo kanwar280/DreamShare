@@ -6,6 +6,12 @@
     font-weight: 300;
     font-style: normal;
   } 
+  .draggable {
+    touch-action: none; /* Prevents gestures for the whole draggable component */
+  }
+  .articles{
+    touch-action: auto;
+  }
   .main{
   background-image: url("../../media/sky.gif");
   height: 100vh;

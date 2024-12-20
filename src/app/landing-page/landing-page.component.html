@@ -4,7 +4,10 @@
   <button (click) = gotopost() class="button1">post</button>
 <button (click) = gotologin() class="button2">login</button>
   <article class="articles" *ngFor="let window of windows; let i = index"
-  [ngStyle]="{'top': randomPositions[i].top, 'left': randomPositions[i].left}" appDraggable (dismiss)="removeArticle(window)" >
+  [@flyIn]="{
+    value: animationStates[i],
+    params: { startX: randomPositions[i].startX || 0, startY: randomPositions[i].startY || 0 }
+  }"  [ngStyle]="{'top': randomPositions[i].top, 'left': randomPositions[i].left}" appDraggable (dismiss)="removeArticle(window)" >
     <div class="article-container">
       <aside> [{{window.Title}}]</aside>
       "{{window.Dream}}"
