@@ -1,6 +1,5 @@
 import { AfterViewInit, Component , ViewChild , ElementRef , Renderer2, NgModule} from '@angular/core';
 import * as $ from 'jquery';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 import { DataServiceService } from '../data-service.service';
 import { HttpClient } from '@angular/common/http';
 import { NgFor, NgForOf, NgStyle, NgIf } from '@angular/common';
