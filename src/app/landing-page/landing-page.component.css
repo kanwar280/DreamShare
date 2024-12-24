@@ -6,12 +6,7 @@
     font-weight: 300;
     font-style: normal;
   } 
-  .draggable {
-    touch-action: none; /* Prevents gestures for the whole draggable component */
-  }
-  .articles{
-    touch-action: auto;
-  }
+
   .main{
   background-image: url("../../media/sky.gif");
   height: 100vh;
@@ -24,6 +19,7 @@
   top: 0;
   overflow: visible;
   }
+  
   aside{
     display: block;
     font-family: "CourierPrime", "ABC Simon Mono", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -32,14 +28,33 @@
     text-transform: uppercase;
     margin-bottom: 18px;
   }
-  .heading{
+  .heading {
     position: relative;
+    top: 45vh;
+    padding: 12px 48px;
+    color: #fff;
+    background: linear-gradient(to right, #9f9f9f 0, #fff 10%, #868686 20%);
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s infinite linear;
+    animation-fill-mode: forwards;
+    -webkit-background-clip: text;
+    -webkit-text-size-adjust: none;
     text-align: center;
     font-family: 'roboto mono';
     font-size: xx-large;
-    top:45vh;
-    color: #ddd;
   }
+  @keyframes shine {
+    0% {
+      background-position: 0;
+    }
+    50% {
+      background-position: 50vw;
+    }
+    100% {
+      background-position: 100vw;
+    }
+  }
+  
   .stacks-container{
   height: 100%;
   width: 100%;
@@ -55,6 +70,7 @@
     position: relative;
     padding-bottom: 50px;
     padding: 15px;
+    margin-top: 10vh;
   background-color: #f0f0f0;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -120,3 +136,58 @@ left: 0%;
           left: 10%;
         }
   }
+  /* From Uiverse.io by adamgiebl */ 
+.button-container-top{
+  position: fixed; /* Positions the container relative to the viewport */
+  top: 20px;       /* Distance from the top */
+  right: 10vw;     /* Distance from the right */
+  display: flex;   /* Aligns the buttons in a row */
+  gap: 10px;
+  max-width: 100%; 
+}
+.button {
+  align-items: center;
+  appearance: none;
+  background-color: #EEF2FF;
+  border-radius: 8px;
+  border-width: 2px;
+  border-color: rgba(83, 109, 254, 0.2);
+  box-shadow: rgba(83, 109, 254, 0.2) 0 2px 4px, rgba(83, 109, 254, 0.15) 0 7px 13px -3px, #B4B4C8 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono", monospace;
+  height: 2em;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(83, 109, 254, 0.4) 0 2px 4px, rgba(83, 109, 254, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.button:hover {
+  box-shadow: rgba(83, 109, 254, 0.3) 0 4px 8px, rgba(83, 109, 254, 0.2) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
