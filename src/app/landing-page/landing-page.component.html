@@ -1,8 +1,14 @@
 
 <div class="main">
   <h1 class="heading">Dreams.archive</h1>
-  <button (click) = gotopost() class="button1">post</button>
-<button (click) = gotologin() class="button2">login</button>
+  <!--login tag starts-->
+  <div class="button-container-top">
+    <button class="button" role="button" (click) = gotopost()>post</button>
+    <button class="button" role="button" (click) = gotologin()>{{user?.displayName ??  'Log In'}}</button>
+  </div>
+  
+
+  <!--login tag ends-->
   <article class="articles" *ngFor="let window of windows; let i = index"
   [ngStyle]="{'top': randomPositions[i].top, 'left': randomPositions[i].left}" appDraggable (dismiss)="removeArticle(window)" >
     <div class="article-container">
@@ -11,7 +17,7 @@
       <aside> [{{window.Date}}  -  {{window.Type}}]</aside>
     </div>
     <div class="button-container">
-      <button id="save"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <button id="save" (click)="saveDream(window)"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 6L7.5 5.25H16.5L17.25 6V19.3162L12 16.2051L6.75 19.3162V6ZM8.25 6.75V16.6838L12 14.4615L15.75 16.6838V6.75H8.25Z" fill="#080341"/>
       </svg></button>
       <!--change black to red when a dream is liked-->
@@ -42,7 +48,6 @@
 </app-popup>
 </div>
 <p class="text">Work in progress || A platform to share your dreams. </p>
-<button class="insta" (click)="fetchAndShareImage('https://dreamimagespublicallyaccessible.s3.ca-central-1.amazonaws.com/549-536x354.jpg')"> Share on Instagram </button>
 
 <div class="stacks-container">
 
