@@ -3,37 +3,38 @@
 <div class="main">
 
 <div class="container">
-<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="title">Title:</label>
-    <input id="title" formControlName="title" type="text" [(ngModel)]="title" name="message" required />
+<form [formGroup]="uploadForm">
+  <div class="title">Post</div>
+  <div class="form_group">
+    <label class="sub_title" for="title">Title:</label>
+    <input class="form_style"  id="title" formControlName="title" type="text" [(ngModel)]="title" name="message" required />
   </div>
-    <div>
-      <label for="message">Message:</label>
-      <input id="message" formControlName="message" type="text" [(ngModel)]="message" name="message" required />
+    <div class="form_group">
+      <label class="sub_title" for="message">Message:</label>
+      <input class="form_style"  id="message" formControlName="message" type="text" [(ngModel)]="message" name="message" required />
     </div>
-    <div>
-      <label for="dropdown">Type:</label>
+    <div class="form_group">
+      <label class="sub_title" for="dropdown">Type:</label>
   <select id="dropdown" formControlName="Type" required>
     <option *ngFor="let option of options" [value]="option">{{ option }}</option>
   </select>
     </div>
-    <div>
-      <label for="dropdown">Can we show this on landingpage:</label>
+    <div class="form_group">
+      <label class="sub_title" for="dropdown">Can we show this on landingpage:</label>
     <select id="booleanChoice" formControlName="IsPrivate" required>
       <option [value]="true">True</option>
       <option [value]="false">False</option>
     </select>
   </div>
-    <div>
-      <label for="image">Create AI Image based on your dream:</label>
+    <div class="form_group">
+      <label class="sub_title" for="image">Create AI Image based on your dream:</label>
       <button (click)="GetImage()"></button>
-      <div *ngIf="base64Image">
+      <div *ngIf="base64Image" class="img">
         <img [src]="base64Image" alt="Generated Image" />
       </div>
     </div>
   
-    <button type="submit">Upload</button>
+    <button class="btn" type="submit" (click)="submit()">Upload</button>
   </form>
   <h2 class="success" *ngIf="toDisplay">Your Dream has been added to the archive.</h2>
 </div>

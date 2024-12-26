@@ -78,6 +78,7 @@ export class PostDreamComponent {
           .then((blob) => this.convertBlobToBase64(blob))
           .then((base64) => {
             this.base64Image = base64;  // Bind the Base64 string to display the image
+            this.image = this.base64Image;
           })
           .catch((error) => {
             console.error('Error fetching image:', error);
@@ -98,7 +99,7 @@ export class PostDreamComponent {
     });
   }
 
-  onSubmit() {
+  submit() {
     if (this.uploadForm.valid) {
       const body = {
         UserId: this.user?.uid,
