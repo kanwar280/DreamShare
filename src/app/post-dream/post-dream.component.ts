@@ -65,31 +65,52 @@ export class PostDreamComponent {
       reader.readAsDataURL(file);
     }
   }
-  GetImage(){
-    const dreamValue = this.uploadForm.get('message')?.value;
-    if (dreamValue){
-      if (dreamValue.trim()) {
-        const encodedPrompt = encodeURIComponent(dreamValue); // URL encode the prompt
-        const url = `https://pollinations.ai/p/${encodedPrompt}`;
+  GetImage() {
+    const dreamValue = this.uploadForm.get('message')?.value.trim();
   
-        // Fetch the image as a Blob
-        fetch(url)
-          .then((response) => response.blob())
-          .then((blob) => this.convertBlobToBase64(blob))
-          .then((base64) => {
-            this.base64Image = base64;  // Bind the Base64 string to display the image
-            this.image = this.base64Image;
+    if (dreamValue) {
+      if (dreamValue) {
+        const payload = {
+          body: JSON.stringify({ message: dreamValue })
+        };
+  
+        fetch('https://3690jjsk4e.execute-api.ca-central-1.amazonaws.com/new', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const parsedBody = JSON.parse(data.body);
+  
+            if (parsedBody && parsedBody.base64_image) {
+              const base64Image = parsedBody.base64_image;
+              this.base64Image = `data:image/jpeg;base64,${base64Image}`; // Add the data URI scheme
+              this.image = this.base64Image; // Bind it for display
+            } else {
+              throw new Error('Invalid response format');
+            }
           })
           .catch((error) => {
             console.error('Error fetching image:', error);
           });
+      } else {
+        alert('Please provide a non-empty dream');
       }
+    } else {
+      alert('Please provide a dream first');
     }
-    else{
-      alert('please provide a dream first')
-    }
-    
   }
+  
+  
+  
   private convertBlobToBase64(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
