@@ -56,7 +56,7 @@ export class LandingPageComponent{
       return;
     }
   
-    const UserID = window.UserID;
+    const UserID = this.user.uid;
     const DreamID = window.DreamID;
   
     this.userdata.saveDream(UserID, DreamID).subscribe({
@@ -94,13 +94,6 @@ export class LandingPageComponent{
   }
   
   
-  likeDream(){
-    if(this.user ==null){
-      alert("you're not signed in yet"); 
-    }
-    
-  }
-
   //WORKIONGONTHISFUNCTION()
   getSavedDreams(): void {
     console.log('Current User:', this.user); 
