@@ -112,7 +112,7 @@ left: 0%;
   #save{
     background-color: transparent;
     border: none;
-    margin-left: 70px;
+    margin-left: 20px;
     transform: translateY(-2px);
   }
   #share:hover, #like:hover{

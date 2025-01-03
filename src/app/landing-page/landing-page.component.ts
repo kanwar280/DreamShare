@@ -10,6 +10,7 @@ import { PopupComponent } from 'app/popup/popup.component';
 import { AuthService } from 'app/auth.service';
 import { UserDataService } from 'app/userdata.service';
 import { Auth, signInWithPopup, GoogleAuthProvider, User, signOut} from '@angular/fire/auth';
+import { response } from 'express';
 
 
 
@@ -49,29 +50,90 @@ export class LandingPageComponent{
   removeArticle(window: any) {
     this.windows = this.windows.filter(w => w !== window);
   }
-  saveDream(window:any){
-    if(this.user == null){
-      alert("you're not signed in");
+  saveDream(window: any) {
+    if (this.user == null) {
+      alert("You're not signed in");
+      return;
     }
+  
     const UserID = window.UserID;
     const DreamID = window.DreamID;
+  
     this.userdata.saveDream(UserID, DreamID).subscribe({
-      next: (response) => {
-        console.log('Dream saved successfully:', response);
-        window.svgFillColor = 'red';
+      next: (response: any) => {
+        try {
+          const parsedResponse = typeof response.body === 'string'
+            ? JSON.parse(response.body)
+            : response.body;
+  
+          console.log('Parsed response:', parsedResponse);
+  
+          if (parsedResponse?.message === "Dream removed successfully") {
+            console.log('Dream removed:', parsedResponse.updatedDreams);
+            // Check if DreamID is in the updatedDreams array
+            if (!parsedResponse.updatedDreams?.includes(DreamID)) {
+              console.log(`Changing svgFillColor to black for DreamID: ${DreamID}`);
+              window.svgFillColor = 'black'; // Change color to black
+            }
+          } else {
+            console.log('Dream saved successfully:', parsedResponse);
+            window.svgFillColor = 'red'; // Change color to red
+          }
+        } catch (error) {
+          console.error('Error parsing response:', error);
+          alert('Unexpected response from the server.');
+        }
       },
       error: (error) => {
         console.error('Error saving dream:', error);
         alert('Failed to save the dream.');
       },
     });
-    console.log(window.DreamID)
+  
+    console.log('DreamID:', DreamID);
   }
+  
+  
   likeDream(){
     if(this.user ==null){
       alert("you're not signed in yet"); 
     }
     
+  }
+
+  //WORKIONGONTHISFUNCTION()
+  getSavedDreams(): void {
+    console.log('Current User:', this.user); 
+    if (this.user) {
+      fetch('https://dkfly3c13c.execute-api.ca-central-1.amazonaws.com/new', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ UserID: this.user?.uid }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Http error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('dreams', data.body)
+          const savedDreamIds = data.body; // Assuming this is an array of IDs
+          console.log('Saved Dream IDs:', savedDreamIds);
+  
+          // Update the svgFillColor for matching windows
+          this.windows.forEach((window) => {
+            if (savedDreamIds.includes(window.DreamID)) {
+              window.svgFillColor = 'red'; // Mark as saved
+            }
+          });
+        })
+        .catch((error) => {
+          console.error('Error fetching saved dreams:', error);
+        });
+    }
   }
   
   private dragging = false;
@@ -88,7 +150,12 @@ export class LandingPageComponent{
   
   ngOnInit():void {
     console.log(this.authservice.isLoggedIn());
-    setTimeout(()=>console.log(this.authservice.isLoggedIn()) , 1000 )
+    setTimeout(() => console.log(this.authservice.isLoggedIn()), 1000);
+    setTimeout(() => {
+      console.log('Calling getSavedDreams after delay');
+      this.getSavedDreams();
+    }, 2000); 
+
     console.log(this.deviceService.isMobile());
     this.dataservice.fetchData().subscribe(
       (data) => {

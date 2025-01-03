@@ -111,14 +111,6 @@ export class PostDreamComponent {
   
   
   
-  private convertBlobToBase64(blob: Blob): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);  // Resolve with Base64 string
-      reader.onerror = (err) => reject(err);
-      reader.readAsDataURL(blob);  // Convert Blob to Base64
-    });
-  }
 
   submit() {
     if (this.uploadForm.valid) {
