@@ -21,6 +21,7 @@ RouterOutlet],
   styleUrl: './post-dream.component.css'
 })
 export class PostDreamComponent {
+  buttonpress = false;
   uploadForm: FormGroup;
   selectedFile: File | null = null;
   image: string | ArrayBuffer | null = null;
@@ -48,7 +49,9 @@ export class PostDreamComponent {
       this.user = currentUser;
     });
   }
- 
+  gotologin(){
+    this.Route.navigate(['login']);
+  }
   goback(){
     this.Route.navigate(['']);
   }
@@ -67,6 +70,7 @@ export class PostDreamComponent {
   }
   GetImage() {
     const dreamValue = this.uploadForm.get('message')?.value.trim();
+    this.buttonpress = true;
   
     if (dreamValue) {
       if (dreamValue) {
@@ -99,7 +103,7 @@ export class PostDreamComponent {
             }
           })
           .catch((error) => {
-            console.error('Error fetching image:', error);
+            alert('An unknown error occured :(, try again soon');
           });
       } else {
         alert('Please provide a non-empty dream');

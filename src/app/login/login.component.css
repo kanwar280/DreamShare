@@ -1,0 +1,9 @@
+.main{
+    background-image: url("../../media/sky.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 105vw;
+    margin-left: -5%;
+    margin-top: -2%;
+    }

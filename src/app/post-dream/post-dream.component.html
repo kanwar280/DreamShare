@@ -1,6 +1,12 @@
  
-<button (click) = goback()>back</button>
+
+
 <div class="main">
+  <div class="button-container">
+    <button class="button" (click) = goback()>back</button>
+    <button class="button" role="button" (click) = gotologin()>{{user?.displayName ??  'Log In'}}</button>
+  
+  </div>
 
 <div class="container">
 <form [formGroup]="uploadForm">
@@ -29,20 +35,29 @@
   </div>
     <div class="form_group">
       <label class="sub_title" for="image">Create AI Image based on your dream:</label>
-      <button (click)="GetImage()"></button>
+      <button class="button" *ngIf="!buttonpress" (click)="GetImage()">yes</button>
+      <div class="spinner center" *ngIf="buttonpress && !base64Image">
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+        <div class="spinner-blade"></div>
+    </div>
       <div *ngIf="base64Image" class="img">
         <img [src]="base64Image" alt="Generated Image" />
       </div>
     </div>
   
-    <button class="btn" type="submit" (click)="submit()">Upload</button>
+    <button class="btn" type="radio" *ngIf="!toDisplay" (click)="submit()">Upload</button>
   </form>
-  <h2 class="success" *ngIf="toDisplay">Your Dream has been added to the archive.</h2>
+  <h4 class="success" *ngIf="toDisplay">Your Dream has been added to the archive.</h4>
 </div>
 </div>
-<div *ngIf="isLoggedIn; else notLoggedIn">
-  <p>Welcome! You are logged in.</p>
-</div>
-<ng-template #notLoggedIn>
-  <p>Please log in to continue.</p>
-</ng-template>
+

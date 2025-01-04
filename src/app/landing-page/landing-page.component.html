@@ -1,18 +1,30 @@
 
 <div class="main">
+  
   <h1 class="heading">Dreams.archive</h1>
   <!--login tag starts-->
+  <div class="next-button">
+    <button class="button" role="button" (click) = Next()>next</button>
+  </div>
+  
   <div class="button-container-top">
     <button class="button" role="button" (click) = gotopost()>post</button>
     <button class="button" role="button" (click) = gotologin()>{{user?.displayName ??  'Log In'}}</button>
+    
   </div>
   
 
   <!--login tag ends-->
-  <article class="articles" *ngFor="let window of windows; let i = index"
-  [ngStyle]="{'top': randomPositions[i].top, 'left': randomPositions[i].left}" appDraggable (dismiss)="removeArticle(window)" >
-    <div class="article-container">
-      <aside> [{{window.Title}}]</aside>
+  <article *ngFor="let window of displayedwindows; let i = index" class="articles fade"
+  [ngStyle]="getCombinedStyles(window, randomPositions[i+windowIndex], randomTransformations[i+windowIndex])"
+ appDraggable (dismiss)="removeArticle(window)" [ngClass]="fadeState" >
+ <div class="button-top-right" *ngIf="window.Image" (click)="toggleView(window)" (touchstart)="toggleView(window)">
+  ?
+</div>
+    <div class="article-container"[ngClass]="{'hidden' : window.hideContent }" [ngStyle]="{
+      'background-color': window.Image ? 'rgba(255, 255, 255, 0.8)' : 'white'
+    }">
+      <aside> [{{window.Title}}] </aside>
       "{{window.Dream}}"
       <aside> [{{window.Date}}  -  {{window.Type}}]</aside>
     </div>
@@ -35,7 +47,6 @@
 [onClose]="closePopup.bind(this)">
 </app-popup>
 </div>
-<p class="text">Work in progress || A platform to share your dreams. </p>
 
 <div class="stacks-container">
 

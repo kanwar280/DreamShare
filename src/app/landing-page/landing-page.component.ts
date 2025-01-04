@@ -2,7 +2,7 @@ import { AfterViewInit, Component , ViewChild , ElementRef , Renderer2, NgModule
 import * as $ from 'jquery';
 import { DataServiceService } from '../data-service.service';
 import { HttpClient } from '@angular/common/http';
-import { NgFor, NgForOf, NgStyle, NgIf } from '@angular/common';
+import { NgFor, NgForOf, NgStyle, NgIf, NgClass } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { DraggableDirective } from 'app/draggable.directive';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -18,7 +18,7 @@ import { response } from 'express';
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [RouterOutlet, NgFor, NgStyle, DraggableDirective, NgIf, PopupComponent],
+  imports: [RouterOutlet, NgFor, NgStyle, DraggableDirective, NgIf, PopupComponent,NgClass],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
   
@@ -32,6 +32,7 @@ export class LandingPageComponent{
   items: any[] = [];
   svgFillColor: string = 'black'; 
   randomPositions: { top: string, left: string }[] = [];
+  randomTransformations: { rotate: string, }[] = [];
   selectedWindow: any = null;
   openPopup(window: any): void {
     this.selectedWindow = window;
@@ -50,11 +51,23 @@ export class LandingPageComponent{
   removeArticle(window: any) {
     this.windows = this.windows.filter(w => w !== window);
   }
+  toggleView(window: any): void {
+    if (!window.hideContent) {
+      // Trigger hiding animation
+      window.hideContent = true;
+    } else {
+      // Delay showing animation slightly
+      setTimeout(() => {
+        window.hideContent = false;
+      }, 50); // Small delay to allow animations
+    }
+  }
   saveDream(window: any) {
     if (this.user == null) {
       alert("You're not signed in");
       return;
     }
+  
   
     const UserID = this.user.uid;
     const DreamID = window.DreamID;
@@ -132,15 +145,52 @@ export class LandingPageComponent{
   private dragging = false;
   private dragOffset = { x: 0, y: 0 };
   windows: any[] = [];
+  displayedwindows: any[] = [];
+  windowIndex = 5;
+  totalWindowCount = 0;
+  fadeState = '';
+ 
 
   constructor(private userdata: UserDataService,private auth: Auth,private authservice: AuthService ,private renderer: Renderer2, private dataservice:DataServiceService, private Route:Router, private deviceService: DeviceDetectorService) {
     this.auth.onAuthStateChanged((currentUser) => {
       this.user = currentUser;
     });
   }
-  
+  getAdjustedIndex(i: number) {
+    return i + this.windowIndex;
+  }
     
-  
+  getCombinedStyles(window: any, position: { top: string; left: string }, transformation: { rotate: string}) {
+    const backgroundStyle = window.Image
+      ? {
+          'background-image': `url(${window.Image})`,
+          'background-size': 'cover',
+          'background-position': 'center',
+          'border-radius': '10px',
+          'box-shadow': '0px 4px 8px rgba(0, 0, 0, 0.2)'
+        }
+      : {
+    
+      };
+      const transformationStyle = {
+        transform: `rotate(${transformation.rotate})`
+      };
+    return { ...position, ...backgroundStyle, ...transformationStyle };
+  }
+
+  Next(){
+    this.fadeState = 'fade-out';
+    setTimeout(() => {
+      if(this.totalWindowCount > this.windowIndex){
+        this.displayedwindows = this.windows.slice(this.windowIndex, this.windowIndex + 5)
+        this.windowIndex = this.windowIndex + 5;
+      }
+      else{
+        this.windowIndex = 0;
+      }
+    }, 900);
+    setTimeout(()=> {this.fadeState = 'fade-in'}, 1000);
+  }
   ngOnInit():void {
     console.log(this.authservice.isLoggedIn());
     setTimeout(() => console.log(this.authservice.isLoggedIn()), 1000);
@@ -158,8 +208,13 @@ export class LandingPageComponent{
         }));
         this.randomPositions = this.windows.map(() => ({
           top: `${Math.floor(Math.random() * 70)}vh`,
-          left: `${Math.floor(Math.random() * 70)}vw`
+          left: `${Math.random() * 70}vw`
         }));
+        this.randomTransformations = this.windows.map(() =>({
+          rotate: `${(Math.random() * 20.6) - 5.6}deg`
+        }))
+        this.displayedwindows = this.windows.slice(0, 5);
+        this.totalWindowCount = this.windows.length;
       },
       (error) => {
         console.error('error fetching data', error);

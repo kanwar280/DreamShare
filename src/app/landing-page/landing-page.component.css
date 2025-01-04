@@ -19,6 +19,16 @@
   top: 0;
   overflow: visible;
   }
+  .next-button{
+    position: absolute;
+    bottom: 10vh;
+    left: 47vw;
+    z-index: 99999999;
+  }
+  .button-next{
+    position: inherit;
+    z-index: 99999999;
+  }
   
   aside{
     display: block;
@@ -55,6 +65,7 @@
     }
   }
   
+  
   .stacks-container{
   height: 100%;
   width: 100%;
@@ -65,7 +76,19 @@
     cursor: move;
     top: 20%;
     left: 20%;
-      }
+  }
+  .fade {
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .fade-out {
+    opacity: 0;
+  }
+  
+  .fade-in {
+    opacity: 1;
+  }
   .article-container{
     position: relative;
     padding-bottom: 50px;
@@ -74,7 +97,18 @@
   background-color: #f0f0f0;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 30vw;
+  max-height: fit-content;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
   }
+
+.article-container.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
   .text{
     position: absolute;
     top: 10%;
@@ -127,6 +161,38 @@ left: 0%;
     z-index: 999;
     left: 10%;
   }
+  .button-top-right {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .rotating-fading {
+    animation: rotateFade 1s forwards;
+  }
+  
+  @keyframes rotateFade {
+    0% {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+    100% {
+      opacity: 0;
+      transform: rotate(90deg);
+    }
+  }
+  
   
   @media (max-width: 600px) {
     .button1{
@@ -135,6 +201,20 @@ left: 0%;
         .button2{
           left: 10%;
         }
+      .articles{
+        max-width: 70vw;
+        max-height: 60vh;
+        
+      }
+      #save{
+        margin-left: 40px;
+      }
+      .next-button{
+        position: absolute;
+        bottom: 20vh;
+        left: 45vw;
+        z-index: 99999999;
+      }
   }
   /* From Uiverse.io by adamgiebl */ 
 .button-container-top{

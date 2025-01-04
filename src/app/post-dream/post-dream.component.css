@@ -6,15 +6,15 @@
     font-weight: 300;
     font-style: normal;
   } 
-
+  label>input[type="radio"], label>input[type="radio"]:checked~button {display:none}
 .main{
     background-image: url("../../media/sky.gif");
     background-repeat: no-repeat;
     background-size: cover;
-    height: 110vh;
+    height: 100vh;
     width: 105vw;
     margin-left: -5%;
-    margin-top: -5%;
+    margin-top: -2%;
     }
 .container{
     font-family: 'roboto mono';
@@ -26,11 +26,19 @@
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    background-color: #EDDCD9;
+    background-color: #B4B4C8;
   border: 2px solid #264143;
   border-radius: 20px;
-  box-shadow: 3px 4px 0px 1px #E99F4C;
+  box-shadow: 3px 4px 0px 1px #6f6f8d;
 }
+.button-container   {
+    position: fixed; /* Positions the container relative to the viewport */
+    top: 20px;       /* Distance from the top */
+    right: 10vw;     /* Distance from the right */
+    display: flex;   /* Aligns the buttons in a row */
+    gap: 10px;
+    max-width: 100%; 
+  }
 .title{
     font-family: 'roboto mono';
     color: #264143;
@@ -55,8 +63,8 @@
 
 .form_style {
     outline: none;
-    border: 2px solid #264143;
-    box-shadow: 3px 4px 0px 1px #E99F4C;
+    border: 2px solid #B4B4C8;
+    box-shadow: 3px 4px 0px 1px #6f6f8d;
     width: 290px;
     padding: 12px 10px;
     border-radius: 4px;
@@ -80,4 +88,205 @@
   
   .btn:hover {
     opacity: .9;
+  }
+  @media (max-width: 600px) {
+
+.container{
+    font-family: 'roboto mono';
+    position: absolute;
+    left: 5vw;
+    top:20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background-color: #B4B4C8;
+  border: 2px solid #264143;
+  border-radius: 20px;
+  box-shadow: 3px 4px 0px 1px #6f6f8d;
+}
+  }
+  .button {
+    align-items: center;
+    appearance: none;
+    background-color: #EEF2FF;
+    border-radius: 8px;
+    border-width: 2px;
+    border-color: rgba(83, 109, 254, 0.2);
+    box-shadow: rgba(83, 109, 254, 0.2) 0 2px 4px, rgba(83, 109, 254, 0.15) 0 7px 13px -3px, #B4B4C8 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: black;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono", monospace;
+    height: 2em;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow 0.15s, transform 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+  }
+  
+  .button:focus {
+    outline: none;
+    box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(83, 109, 254, 0.4) 0 2px 4px, rgba(83, 109, 254, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  }
+  
+  .button:hover {
+    box-shadow: rgba(83, 109, 254, 0.3) 0 4px 8px, rgba(83, 109, 254, 0.2) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+  }
+  
+  .button:active {
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px);
+  }
+  /* From Uiverse.io by mrhyddenn */ 
+.spinner {
+    font-size: 28px;
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+  }
+  
+  .spinner.center {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  
+  .spinner .spinner-blade {
+    position: absolute;
+    left: 0.4629em;
+    bottom: 0;
+    width: 0.074em;
+    height: 0.2777em;
+    border-radius: 0.0555em;
+    background-color: transparent;
+    -webkit-transform-origin: center -0.2222em;
+    -ms-transform-origin: center -0.2222em;
+    transform-origin: center -0.2222em;
+    animation: spinner-fade9234 1s infinite linear;
+  }
+  
+  .spinner .spinner-blade:nth-child(1) {
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  
+  .spinner .spinner-blade:nth-child(2) {
+    -webkit-animation-delay: 0.083s;
+    animation-delay: 0.083s;
+    -webkit-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+  
+  .spinner .spinner-blade:nth-child(3) {
+    -webkit-animation-delay: 0.166s;
+    animation-delay: 0.166s;
+    -webkit-transform: rotate(60deg);
+    -ms-transform: rotate(60deg);
+    transform: rotate(60deg);
+  }
+  
+  .spinner .spinner-blade:nth-child(4) {
+    -webkit-animation-delay: 0.249s;
+    animation-delay: 0.249s;
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  
+  .spinner .spinner-blade:nth-child(5) {
+    -webkit-animation-delay: 0.332s;
+    animation-delay: 0.332s;
+    -webkit-transform: rotate(120deg);
+    -ms-transform: rotate(120deg);
+    transform: rotate(120deg);
+  }
+  
+  .spinner .spinner-blade:nth-child(6) {
+    -webkit-animation-delay: 0.415s;
+    animation-delay: 0.415s;
+    -webkit-transform: rotate(150deg);
+    -ms-transform: rotate(150deg);
+    transform: rotate(150deg);
+  }
+  
+  .spinner .spinner-blade:nth-child(7) {
+    -webkit-animation-delay: 0.498s;
+    animation-delay: 0.498s;
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+  
+  .spinner .spinner-blade:nth-child(8) {
+    -webkit-animation-delay: 0.581s;
+    animation-delay: 0.581s;
+    -webkit-transform: rotate(210deg);
+    -ms-transform: rotate(210deg);
+    transform: rotate(210deg);
+  }
+  
+  .spinner .spinner-blade:nth-child(9) {
+    -webkit-animation-delay: 0.664s;
+    animation-delay: 0.664s;
+    -webkit-transform: rotate(240deg);
+    -ms-transform: rotate(240deg);
+    transform: rotate(240deg);
+  }
+  
+  .spinner .spinner-blade:nth-child(10) {
+    -webkit-animation-delay: 0.747s;
+    animation-delay: 0.747s;
+    -webkit-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+  }
+  
+  .spinner .spinner-blade:nth-child(11) {
+    -webkit-animation-delay: 0.83s;
+    animation-delay: 0.83s;
+    -webkit-transform: rotate(300deg);
+    -ms-transform: rotate(300deg);
+    transform: rotate(300deg);
+  }
+  
+  .spinner .spinner-blade:nth-child(12) {
+    -webkit-animation-delay: 0.913s;
+    animation-delay: 0.913s;
+    -webkit-transform: rotate(330deg);
+    -ms-transform: rotate(330deg);
+    transform: rotate(330deg);
+  }
+  
+  @keyframes spinner-fade9234 {
+    0% {
+      background-color: #69717d;
+    }
+  
+    100% {
+      background-color: transparent;
+    }
   }

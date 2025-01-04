@@ -2,22 +2,15 @@ import { Component } from '@angular/core';
 import { Auth, signInWithPopup, GoogleAuthProvider, User, signOut} from '@angular/fire/auth';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
+import { NgFor, NgForOf, NgStyle, NgIf, NgClass } from '@angular/common';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule],
-  template: `
-    <h2>Login with Google</h2>
-    <button *ngIf="!user" (click)="loginWithGoogle()">Sign in with Google</button>
-    <button (click)="goback()">Back</button>
-    <div *ngIf="user">
-      
-      <p>Welcome, {{ user.displayName }}</p>
-      <img [src]="user.photoURL" alt="User photo" *ngIf="user.photoURL" width="100">
-      <button (click)="logout()">LogOut</button>
-    </div>
-  `,
+  imports: [CommonModule, NgIf, NgStyle, NgFor],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
   user: User | null = null;
@@ -40,6 +33,7 @@ export class LoginComponent {
         console.error('Error during sign-in:', error);
       });
   }
+
   fetchmydreams() {
 
   }

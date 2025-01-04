@@ -1,1 +1,15 @@
-<p>login works!</p>
+
+<div class="main">
+<div *ngIf="!user">
+    <h2 >Login with Google</h2>
+    <button *ngIf="!user" (click)="loginWithGoogle()">Sign in with Google</button>
+    <button (click)="goback()">Back</button>
+</div>
+
+<div *ngIf="user">
+      
+      <p>Welcome, {{ user.displayName }}</p>
+      <img [src]="user.photoURL" alt="User photo" *ngIf="user.photoURL" width="100">
+      <button (click)="logout()">LogOut</button>
+</div>
+</div>
