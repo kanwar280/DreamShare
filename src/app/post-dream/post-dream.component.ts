@@ -125,7 +125,7 @@ export class PostDreamComponent {
         title: this.title,
         image: this.image?.toString().split(",")[1],
         type: this.uploadForm.get('Type')?.value,
-        isPrivate: this.uploadForm.get('IsPrivate')?.value,
+        isPrivate: false,
       };
       console.log(body)
   

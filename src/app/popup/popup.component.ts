@@ -1,14 +1,17 @@
 import { Component, Input , ViewChild, ElementRef} from '@angular/core';
 import html2canvas from 'html2canvas';
+import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-popup',
   standalone: true,
+  imports:[NgIf],
   template: `
     <div class="popup-overlay" (click)="closePopup($event)">
       <div #popupContent class="popup-content" (click)="$event.stopPropagation()">
-        <h3>{{ data?.Title }}</h3>
-        <p>{{ data?.Dream }}<br>
-        [{{ data?.Date }} - {{ data?.Type }}]<br>
+        <img class="image" *ngIf="data.Image" [src]="data.Image" >
+        <h4>[{{ data?.Title }}]</h4>
+        <p>"{{ data?.Dream }}"<br>
+        [{{ data?.Date }} - {{ data?.Type }}]<br></p>
         <button (click)="onClose()">Close</button>
         <button (click)="share()">Share on IG</button>
       </div>

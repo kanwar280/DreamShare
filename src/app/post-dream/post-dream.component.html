@@ -25,16 +25,9 @@
     <option *ngFor="let option of options" [value]="option">{{ option }}</option>
   </select>
     </div>
+  
     <div class="form_group">
-      <label class="sub_title" for="dropdown">Privacy settings:</label>
-    <select id="booleanChoice" formControlName="IsPrivate" required>
-      <option [value]="false" selected>Public</option>
-      <option [value]="true">Private Dream</option>
-      
-    </select>
-  </div>
-    <div class="form_group">
-      <label class="sub_title" for="image">Create AI Image based on your dream:</label>
+      <label class="sub_title" for="image">Create an image based on your dream:</label>
       <button class="button" *ngIf="!buttonpress" (click)="GetImage()">yes</button>
       <div class="spinner center" *ngIf="buttonpress && !base64Image">
         <div class="spinner-blade"></div>
