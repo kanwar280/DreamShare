@@ -25,8 +25,16 @@
   }
   .image{
     position: inherit;
-    max-width: 50vw;
-    max-height: 50vh;
+    max-width:100%;
+    max-height:fit-content;
   }
+
   
   
+  @media (max-width: 600px) {
+    .image{
+      position: inherit;
+      max-width:80%;
+      max-height:fit-content;
+    }
+  }

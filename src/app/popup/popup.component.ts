@@ -1,21 +1,24 @@
 import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import html2canvas from 'html2canvas';
+import { NgStyle } from '@angular/common';
 import { NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'app-popup',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, NgStyle],
 
   template: `
     <div class="popup-overlay" (click)="closePopup($event)">
-      <div #popupContent class="popup-content" (click)="$event.stopPropagation()">
+      <div #popupContent class="popup-content" [ngStyle]="{ 'background-color': backgroundColor }" (click)="$event.stopPropagation()">
         <img class="image" *ngIf="data.Image" [src]="base64Image" />
-        <h4>[{{ data?.Title }}]</h4>
-        <p>"{{ data?.Dream }}"<br />
+        <h4 [ngStyle]="{ 'color': Color }">[{{ data?.Title }}]</h4>
+        <p [ngStyle]="{ 'color': Color }">"{{ data?.Dream }}"<br />
         [{{ data?.Date }} - {{ data?.Type }}]<br /></p>
-        <button (click)="onClose()">Close</button>
-        <button (click)="share()">Share on IG</button>
+        <button *ngIf="!isSharing" (click)="onClose()">Close</button>
+        <button *ngIf="!isSharing" (click)="share()">Share on IG</button>
+        <button *ngIf="!isSharing" (click)="invert()">Change colors </button>
       </div>
     </div>
   `,
@@ -29,9 +32,23 @@ export class PopupComponent {
   imageUrl: string | undefined; // To store the image URL
   base64Image: string | null = null;  // Store Base64 image data
   image: string | ArrayBuffer | null = null;
-
+  isSharing = false;
+backgroundColor = 'white'
+Color = 'Black'
   constructor() {}
+  invert(){
+    if(this.backgroundColor == 'white'){
+      this.backgroundColor = 'black';
+      this.Color = 'White'
 
+    }
+    else{
+      this.backgroundColor = 'white';
+      this.Color = 'Black'
+
+    }
+    console.log("invert")
+  }
   closePopup(event: Event) {
     event.stopPropagation();
     this.onClose();
@@ -76,6 +93,7 @@ export class PopupComponent {
       console.error('Popup content is not available for sharing!');
       return;
     }
+    this.isSharing = true;
     const popupElement = this.popupContent.nativeElement;
     await this.captureAndShareImage(popupElement);
   }
@@ -117,5 +135,7 @@ export class PopupComponent {
     } catch (error) {
       console.error('Error during capture or share:', error);
     }
+    this.isSharing = false;
+
   }
 }
