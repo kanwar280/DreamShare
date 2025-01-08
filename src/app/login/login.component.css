@@ -10,6 +10,7 @@
     background-image: url("../../media/sky.gif");
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
     height: 100vh;
     width: 105vw;
     margin-left: -5%;
@@ -179,6 +180,7 @@
       padding: 15px;
       margin-top: 10vh;
     background-color: #f0f0f0;
+    color: #323232;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     max-width: 30vw;

@@ -3,6 +3,7 @@ import { Auth, signInWithPopup, GoogleAuthProvider, User, signOut} from '@angula
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { NgModel } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { NgFor, NgForOf, NgStyle, NgIf, NgClass } from '@angular/common';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { PopupComponent } from 'app/popup/popup.component';
@@ -14,7 +15,7 @@ import { DataServiceService } from 'app/data-service.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, NgIf, NgStyle, NgFor],
+  imports: [RouterOutlet,CommonModule, NgIf, NgStyle, NgFor, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -22,7 +23,7 @@ export class LoginComponent {
   user: User | null = null;
   options = [
     { label: 'My Dreams', value: 'mydreams' },
-    { label: 'Saved Dreams', value: 'saveddreams' }
+    { label: 'Saved Dreams', value: 'saveddreams' } 
   ];
   fadeState = '';
   svgFillColor: string = 'black'; 
@@ -34,8 +35,9 @@ export class LoginComponent {
   totalWindowCount = 0;
   selectedOption = 'mydreams'; // Default selected option
   results: string[] = []; // Placeholder for results
-  selectedwindows: any = null;
+  selectedwindows: any[] = [];
   selectedWindow: any = null;
+  nothingtoshowstring = true;
 
   constructor(private auth: Auth, private Route: Router, private userdata: UserDataService,private authservice: AuthService ,private renderer: Renderer2, private dataservice:DataServiceService, private deviceService: DeviceDetectorService) {
     // Check if the user is already logged in
@@ -55,6 +57,7 @@ export class LoginComponent {
         console.error('Error during sign-in:', error);
       });
   }
+  
   closePopup(): void {
     this.selectedWindow = null;
   }
@@ -130,7 +133,7 @@ export class LoginComponent {
     this.Route.navigate(['']);
   }
 
-  getCombinedStyles(window: any, position: { top: string; left: string }, transformation: { rotate: string}) {
+  getCombinedStyles(window: any, position: { top: string; left: string }) {
     const backgroundStyle = window.Image
       ? {
           'background-image': `url(${window.Image})`,
@@ -142,11 +145,10 @@ export class LoginComponent {
       : { 
     
       };
-      const transformationStyle = {
-        transform: `rotate(${transformation.rotate})`
-      };
-    return { ...position, ...backgroundStyle, ...transformationStyle };
+      
+    return { ...position, ...backgroundStyle};
   }
+  savedDreamIds:any[] = []
   getSavedDreams(): void {
     console.log('Current User:', this.user); 
     if (this.user) {
@@ -165,12 +167,12 @@ export class LoginComponent {
         })
         .then((data) => {
           console.log('dreams', data.body)
-          const savedDreamIds = data.body; // Assuming this is an array of IDs
-          console.log('Saved Dream IDs:', savedDreamIds);
+          this.savedDreamIds = data.body; // Assuming this is an array of IDs
+          console.log('Saved Dream IDs:', this.savedDreamIds);
   
           // Update the svgFillColor for matching windows
           this.windows.forEach((window) => {
-            if (savedDreamIds.includes(window.DreamID)) {
+            if (this.savedDreamIds.includes(window.DreamID)) {
               window.svgFillColor = 'red'; // Mark as saved
             }
           });
@@ -180,6 +182,40 @@ export class LoginComponent {
         });
     }
   }
+  onOptionChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.selectedOption = input.value;
+
+    if (this.selectedOption === 'saveddreams') {
+      this.onSavedDreamsSelected();
+    }
+    else{
+      this.showselectedwindows();
+    }
+  }
+  onSavedDreamsSelected(){
+    this.selectedwindows = [];
+    this.selectedwindows = this.windows.filter((window) =>
+      this.savedDreamIds.includes(window.DreamID)
+    );
+    console.log("saved")
+  }
+
+  showselectedwindows(){
+    if (this.user) {
+      const userID = this.user.uid;
+      this.selectedwindows = this.windows.filter(window => window.UserID === userID);
+      console.log('Selected Dreams:', this.selectedwindows);
+    } else {
+      console.log('No user is logged in');
+      this.selectedwindows = [];
+    }
+  }
+  showsaveddreams(){
+
+  }
+
+
 
   ngOnInit():void {
     console.log(this.authservice.isLoggedIn());
@@ -200,11 +236,12 @@ export class LoginComponent {
           top: `${Math.floor(Math.random() * 70)}vh`,
           left: `${Math.random() * 70}vw`
         }));
-        this.randomTransformations = this.windows.map(() =>({
-          rotate: `${(Math.random() * 20.6) - 5.6}deg`
-        }))
+      
+    
         this.displayedwindows = this.windows.slice(0, 5);
         this.totalWindowCount = this.windows.length;
+        setTimeout(() => this.showselectedwindows(), 2000);
+
       },
       (error) => {
         console.error('error fetching data', error);
