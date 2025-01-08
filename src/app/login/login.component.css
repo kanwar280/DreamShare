@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+@font-face {
+    src: url('../../media/RobotoMono-Light.ttf') format('truetype');
+    font-family: "Roboto", serif;
+    font-weight: 300;
+    font-style: normal;
+  } 
 .main{
     background-image: url("../../media/sky.gif");
     background-repeat: no-repeat;
@@ -6,4 +14,245 @@
     width: 105vw;
     margin-left: -5%;
     margin-top: -2%;
+    color: #EEF2FF;
+    font-family: 'roboto mono';
     }
+    .login-options{
+        position: absolute;
+        top: 5vh;
+        margin-left: 10vw;
+    }
+    .icon {
+        width: 24px; /* Set explicit width */
+        height: 24px; /* Set explicit height */
+        fill: currentColor; /* Use current text color for the icon */
+        margin-right: 10px;
+
+      }
+      .side{
+        position: absolute;
+        top: 0vh;
+        right: -80vw;
+      }
+
+  .button {
+    align-items: center;
+    appearance: none;
+    background-color: #EEF2FF;
+    border-radius: 8px;
+    border-width: 2px;
+    border-color: rgba(83, 109, 254, 0.2);
+    box-shadow: rgba(83, 109, 254, 0.2) 0 2px 4px, rgba(83, 109, 254, 0.15) 0 7px 13px -3px, #B4B4C8 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: black;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono", monospace;
+    height: 2em;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow 0.15s, transform 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+  }
+  
+  .button:focus {
+    outline: none;
+    box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(83, 109, 254, 0.4) 0 2px 4px, rgba(83, 109, 254, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  }
+  
+  .button:hover {
+    box-shadow: rgba(83, 109, 254, 0.3) 0 4px 8px, rgba(83, 109, 254, 0.2) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+  }
+  
+  .button:active {
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px);
+  }
+
+  /* From Uiverse.io by andrew-demchenk0 */ 
+.wrapper {
+    --font-color-dark: #323232;
+    --font-color-light: #FFF;
+    --bg-color: #fff;
+    --main-color: #323232;
+    position: relative;
+    width: 250px;
+    height: 36px;
+    background-color: var(--bg-color);
+    border: 2px solid var(--main-color);
+    border-radius: 34px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 4px 4px var(--main-color);
+    font-size: small;
+  }
+  
+  .option {
+    width: 120px;
+    height: 28px;
+    position: relative;
+    top: 2px;
+    left: 2px;
+  }
+  
+  .input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    appearance: none;
+    cursor: pointer;
+  }
+  
+  .btn {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .span {
+    color: var(--font-color-dark);
+  }
+  
+  .input:checked + .btn {
+    background-color: var(--main-color);
+  }
+  
+  .input:checked + .btn .span {
+    color: var(--font-color-light);
+  }
+
+
+  aside{
+    display: block;
+    font-family: "CourierPrime", "ABC Simon Mono", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    line-height: 20px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .stacks-container{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    }
+    .articles{
+      font-family: "roboto mono";
+      cursor: move;
+      top: 20%;
+      left: 20%;
+    }
+    .fade {
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+    }
+    
+    .fade-out {
+      opacity: 0;
+    }
+    
+    .fade-in {
+      opacity: 1;
+    }
+    .article-container{
+      position: relative;
+      padding-bottom: 50px;
+      padding: 15px;
+      margin-top: 10vh;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 30vw;
+    max-height: fit-content;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+  
+  .article-container.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+    .text{
+      position: absolute;
+      top: 10%;
+      color:#f0f0f0;
+      background-color: black;
+      font-family: 'roboto mono';
+      font-size: small;
+    }
+    button{
+      position: absolute;
+      top: 1%;
+    }
+    .button1{
+  left: 0%;
+    }
+    .button2{
+      left: 5%;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-between; /* Align buttons left-to-right */
+      position: absolute;
+      bottom: 20px;
+      left: 10px;
+    }
+    #share{
+      background-color: transparent;
+      border: none;
+    }
+    #like{
+      background-color: transparent;
+      border: none;
+      margin-left: 35px;
+    }
+    #save{
+      background-color: transparent;
+      border: none;
+      margin-left: 20px;
+      transform: translateY(-2px);
+    }
+    #share:hover, #like:hover{
+      transform: scale(1.1);
+    }
+    #save:hover{
+      transform: translateY(-3px) scale(1.1);
+    }
+    .insta{
+      position:absolute;
+      top:10%;
+      z-index: 999;
+      left: 10%;
+    }
+  @media  (max-width: 600px){
+    .side{
+        position: absolute;
+        top: 10vh;
+        right: -30vw;
+      }
+
+  }

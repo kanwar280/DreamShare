@@ -32,7 +32,6 @@ export class PostDreamComponent {
   isLoggedIn: boolean = false;
   user: User | null = null;
   options = ['Day Dream', 'Nightmare', 'Healing', 'Epic', 'Lucid', 'Prophetic'];
-  IsPrivate: boolean = false;
   Type: string = '';
   prompt: string = '';        // Bind to input field
   base64Image: string | null = null;  // Store Base64 image data
@@ -43,7 +42,6 @@ export class PostDreamComponent {
       message: ['', [Validators.required]],
       title: ['', [Validators.required]],
       Type: [this.options[0], [Validators.required]],
-      IsPrivate: ['', [Validators.required]]
     });
     this.auth.onAuthStateChanged((currentUser) => {
       this.user = currentUser;

@@ -13,11 +13,11 @@
   <div class="title">Post</div>
   <div class="form_group">
     <label class="sub_title" for="title">Title:</label>
-    <input class="form_style"  id="title" formControlName="title" type="text" [(ngModel)]="title" name="message" required />
+    <input class="form_style"  id="title" formControlName="title" type="text" [(ngModel)]="title" name="message" maxlength="20" required />
   </div>
     <div class="form_group">
       <label class="sub_title" for="message">Message:</label>
-      <input class="form_style"  id="message" formControlName="message" type="text" [(ngModel)]="message" name="message" required />
+      <input class="form_style"  id="message" formControlName="message" type="text" [(ngModel)]="message" name="message" maxlength="120" required />
     </div>
     <div class="form_group">
       <label class="sub_title" for="dropdown">Type:</label>

@@ -28,13 +28,24 @@
     max-width:100%;
     max-height:fit-content;
   }
+  .button-container{
+    position: fixed; /* Positions the container relative to the viewport */
+    display: flex;   /* Aligns the buttons in a row */
+    gap: 10px;
 
-  
-  
-  @media (max-width: 600px) {
-    .image{
-      position: inherit;
-      max-width:80%;
-      max-height:fit-content;
-    }
   }
+  button{
+    border: none;
+    background-color: transparent;
+    margin-left: 10px;
+  }
+  
+  
+
+@media (max-width: 600px) {
+  .image{
+    position: inherit;
+    max-width:80%;
+    max-height:fit-content;
+  }
+}
