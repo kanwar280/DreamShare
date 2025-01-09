@@ -16,7 +16,7 @@
 
   <!--login tag ends-->
   <article *ngFor="let window of displayedwindows; let i = index" class="articles fade"
-  [ngStyle]="getCombinedStyles(window, randomPositions[i+windowIndex], randomTransformations[i+windowIndex])"
+  [ngStyle]="getCombinedStyles(window, randomPositions[i], randomTransformations[i])"
  appDraggable (dismiss)="removeArticle(window)" [ngClass]="fadeState" >
  <div class="button-top-right" *ngIf="window.Image" (click)="toggleView(window)" (touchstart)="toggleView(window)">
   ?

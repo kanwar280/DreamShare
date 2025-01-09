@@ -206,13 +206,16 @@ export class LandingPageComponent{
           ...window,
           svgFillColor: 'black', // Default color
         }));
+        console.log(this.windows);
         this.randomPositions = this.windows.map(() => ({
           top: `${Math.floor(Math.random() * 70)}vh`,
           left: `${Math.random() * 70}vw`
         }));
+        console.log(this.randomPositions)
         this.randomTransformations = this.windows.map(() =>({
           rotate: `${(Math.random() * 20.6) - 5.6}deg`
         }))
+        console.log(this.randomTransformations)
         this.displayedwindows = this.windows.slice(0, 5);
         this.totalWindowCount = this.windows.length;
       },
